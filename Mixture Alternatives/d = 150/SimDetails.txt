@@ -5,9 +5,9 @@ Kernels Used:
 
 Single kernel <- 1. Gaussian with median bandwidth
 		 2. Laplace with median bandwidth
-Multiple kernels <- 1. Gaussian and Laplace each with bandwidths (2^-1,1,2)*(median bandwidth)
-		    2. Gaussian Kernels with bandwidths (2^-2 to 2^2)*(median bandwidth)
-		    3. Laplace Kernels with bandwidths sqrt((2^-2 to 2^2)*(median bandwidth))
+Multiple kernels <- 1. Gaussian and Laplace each with bandwidths (2^-1,1,2)*(median bandwidth^2)
+		    2. Gaussian Kernels with bandwidths (2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2)
+		    3. Laplace Kernels with bandwidths sqrt((2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2))
 
 Simulation Parameters:
 
@@ -21,5 +21,6 @@ parameter for generating cov matrix under H1 (sigma.mult) <- 1.25, Sigma1 Matrix
 
 mean vector under H0 <- 0
 parameter for generating mean vector under H1 (mu.param) <- 0, mean vector under H1 <- mu.param repeated 
+n.iter <-  all iterations <- 500
 
 Note: The plot is done with the mixing probabilities reversed, that is now p <- 1 indicates Gaussian and p <- 0 indicates t
