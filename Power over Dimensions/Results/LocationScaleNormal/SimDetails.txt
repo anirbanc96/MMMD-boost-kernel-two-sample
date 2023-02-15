@@ -21,6 +21,3 @@ parameter for generating cov matrix under H1 (sigma.mult) <- 1.15, Sigma1 Matrix
 mean vector under H0 <- 0
 parameter for generating mean vector under H1 (mu.param) <- 0.1, mean vector under H1 <- mu.param repeated 
 number of iterations for threshold and power estimation <- 500
-
-
-Note: The simulations done here emulates Ramdas paper. Each time we generate from two distributions and check proportion of rejections.
