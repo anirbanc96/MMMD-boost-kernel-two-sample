@@ -9,11 +9,11 @@
 
 ################### Function for generating samples under null #################
 # INPUT: 
-# n <- no. of samples (integer)
-# dim <- dimension of the data (integer)
-# p <- probability of mixture (double in [0,1])
+# n <- no. of samples
+# dim <- dimension of the data
+# p <- probability of mixture
 # OUTPUT:
-# n many samples from the distribution under H0 (a matrix of dimension nxd)
+# n many samples from the distribution under H0
 
 X.gen <- function(n, dim, p){
   
@@ -53,11 +53,11 @@ X.gen <- function(n, dim, p){
 ################################################################################
 ############### Function for generating samples under alternative ##############
 # INPUT: 
-# n <- no. of samples (integer)
-# dim <- dimension of the data (integer)
-# p <- probability of mixture (double in [0,1])
+# n <- no. of samples
+# dim <- dimension of the data
+# p <- probability of mixture
 # OUTPUT:
-# n many samples from the distribution under H1 (a matrix of dimension nxd)
+# n many samples from the distribution under H1
 Y.gen <- function(n, dim, p){
   
   # generating sample from gaussian denoted by mixture probability = 0
@@ -101,10 +101,9 @@ Y.gen <- function(n, dim, p){
 
 ############### Function for computing Euclidean Distance Matrix ###############
 # INPUTS:
-# x <- data under H0 (matrix of dimension mxd)
-# y <- data under H1 (matrix of dimension nxd)
+# x <- data under H0
+# y <- data under H1
 # OUTPUT:  a distance matrix from the combined data x and y 
-#          (matrix of dim (m+n)x(m+n))
 FR.dist <- function(x,y){
   z <- rbind(x,y)
   z.dist.mat <- as.matrix(dist(z))
@@ -115,13 +114,12 @@ FR.dist <- function(x,y){
 
 ############### Function for estimating power of Graph Based tests #############
 # INPUTS:
-# n <- number of data points (integer)
-# d <- dimension of the data (integer)
-# p <- probability of mixing (double in [0,1])
+# n <- number of data points
+# d <- dimension of the data
+# p <- probability of mixing
 # test.type <- type of test to be done. See gtests documentation for details 
-#              (string)
-# n.iter <- number of iterations to be done (integer)
-# OUTPUTS: Estimated power of Graph Based test (double in [0,1])
+# n.iter <- number of iterations to be done
+# OUTPUTS: Estimated power of Graph Based test
 
 FR.test <- function(n,d,p, test.type,n.iter = 1000){
   
@@ -153,17 +151,16 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
 ################################################################################
 # Function for comparing power over dimensions
 # INPUTS:
-# n.seq <- vector of sample sizes (vector)
-# sigma.param <- the parameter used for generating cov matrix under H0 (double)
+# n.seq <- vector of sample sizes
+# sigma.param <- the parameter used for generating cov matrix under H0
 # sigma.mult <- the parameter for multiplying cov matrix under H0 to get cov
-# under H1 (double)
-# mu.param <- the parameter for generating mean under H1 (double)
-# d <- dimension of data (integer)
-# p <- the mixing probability (double in [0,1])
-# n.iter <- number of iterations performed for estimating power (integer)
+# under H1
+# mu.param <- the parameter for generating mean under H1
+# d <- dimension of data
+# p <- the mixing probability
+# n.iter <- number of iterations performed for estimating power
 # OUTPUT:
 # A data frame having powers of graph based test for different sample sizes
-# (dataframe)
 power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1, 
                     mu.param = 0, d,p = 0, n.iter = 500){
   
