@@ -192,7 +192,7 @@ power.d <- function(n, sigma.param = 0.4, sigma.mult = 1.1,
     cat(paste("Starting iteration",k,"\n"))
     #--------------------------------------------------------------------------#
     
-    # Sigma0 matrix <- cov matrix under H0
+    # cov matrix under H0
     Sigma0 <- matrix(0, nrow = d[k], ncol = d[k])
     for(i in 1:d[k]){
       for(j in 1:d[k]){
