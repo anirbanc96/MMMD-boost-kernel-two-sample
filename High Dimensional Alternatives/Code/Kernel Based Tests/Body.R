@@ -2,8 +2,7 @@
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 50
@@ -19,7 +18,7 @@ sigma.param <- 1
 sigma.mult <- 1
 # parameter for mean value for H1 distribution
 mu.param <- 1.25
-#------------------------------------------------------------------------------#
+
 #------------------------------------------------------------------------------#
 # Choice of kernel for single and multiple kernel tests
 # poissble choices: 
@@ -30,8 +29,7 @@ mu.param <- 1.25
 
 # 1st coordinate for single, 2nd for multiple
 kernel.choice <- c("LAP", "GAUSS","LAP", "GEXP", "MIXED")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # storing power values for each dimensions
 
 
@@ -52,6 +50,8 @@ registerDoParallel(cl)
 
 #registerDoParallel(cl)
 
+
+# Running experiments
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
@@ -67,6 +67,7 @@ end-start
 
 stopCluster(cl)
 
+# Storing estimated powers
 single.power.d1 <- 2+6*(0:(n.rep-1))
 single.power.d2 <- 3+6*(0:(n.rep-1))
 multi.power.d1 <- 4+6*(0:(n.rep-1))
@@ -96,5 +97,3 @@ write.csv(power.single.mat2, file = "SinglePower-GAUSS.csv")
 write.csv(power.multi.mat1, file = "MultiPower-LAP.csv")
 write.csv(power.multi.mat2, file = "MultiPower-GEXP.csv")
 write.csv(power.multi.mat3, file = "MultiPower-MIXED.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
