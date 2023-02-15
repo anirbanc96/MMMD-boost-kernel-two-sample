@@ -2,11 +2,13 @@ Distribution: Scale Gaussian with parameters as specified below.
 
 Kernels Used:
 
+Note: In kernlab package gaussian kernel = exp(-sigma|x-x'|^2), laplace kernel = exp(-sigma|x-x|')
+
 Single kernel <- 1. Gaussian with median bandwidth
 		 2. Laplace with median bandwidth
-Multiple kernels <- 1. Gaussian and Laplace each with bandwidths (2^-1,1,2)*(median bandwidth)
-		    2. Gaussian Kernel with bandwidths (2^-2, to 2^2)*(median bandwidth)
-		    3. Laplace Kernel with bandwidths sqrt((2^-2, to 2^2)*(median bandwidth))
+Multiple kernels <- 1.Gaussian and Laplace each with bandwidths sqrt((2^-1,1,2)*(median bandwidth^2))
+		    2.Gaussian kernels with bandwidths sqrt((2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2))
+		    3.Laplace kernels with bandwidths sqrt((2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2))
 
 Simulation Parameters:
 
@@ -21,5 +23,4 @@ Y-data generation <- N(0,(1+h/sqrt(n))I) where h  <- seq(0,2,length.out = 11)
 mean vector under H0 <- 0
 parameter for generating mean vector under H1 (mu.param) <- 0, mean vector under H1 <- mu.param repeated 
 
-
-Note: The simulations done here emulates Ramdas paper. Each time we generate from two distributions and check proportion of rejections.
+iterations for threshold and power <-  500
