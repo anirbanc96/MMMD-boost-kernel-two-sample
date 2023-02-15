@@ -164,8 +164,8 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
 # OUTPUT:
 # A data frame having powers of graph based test under various dimensions
 
-power.d <- function(n, sigma.param = 0.4, sigma.mult = 1.1, 
-                    mu.param = 0, d,p.seq, n.iter = 500){
+power.d <- function(n, sigma.param, sigma.mult, 
+                    mu.param, d, p.seq, n.iter = 500){
   
   # Libraries for parallelising
   library(foreach)
@@ -178,39 +178,35 @@ power.d <- function(n, sigma.param = 0.4, sigma.mult = 1.1,
   
   writeLines(c(""), "log.txt")
   
-  # redefining dimension vector for ease
+  # redefining mixing probability vector for ease
   p <- p.seq
   
   out.compare <- foreach(k=1:length(p), .combine=rbind, .export = ls(envir=globalenv())) %dopar% {
     
-    #--------------------------------------------------------------------------#
+    # Loading required libraries
     library(LaplacesDemon)
     library(Rfast)
-    #--------------------------------------------------------------------------#
+    
     # Creating a log file to keep track of progress
     sink("log.txt", append=TRUE)
     cat(paste("Starting iteration",k,"\n"))
-    #--------------------------------------------------------------------------#
     
-    # Sigma0 matrix <- cov matrix under H0
+    # cov matrix under H0
     Sigma0 <- matrix(0, nrow = d, ncol = d)
     for(i in 1:d){
       for(j in 1:d){
         Sigma0[i,j] = sigma.param^(abs(i-j))
       }
     }
-    # cov matrix under H0
+    # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
+    
     # mean vector under H0
     mu0 <- rep(0, d)
     # mean vector under H1
     mu1 <- rep(mu.param, d)
     
-    #----------------------------------------------------------------------------#
-    #----------------------------------------------------------------------------#
-    
+    # Running the FR test
     out.row.col1 <- FR.test(n, d, p[k], test.type = "o", n.iter)
     cat("FR test in iteration",c(out.row.col1,k),"\n")
     
