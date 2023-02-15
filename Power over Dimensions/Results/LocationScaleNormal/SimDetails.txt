@@ -1,0 +1,25 @@
+Distribution: Location Scale Gaussian with parameters as specified below.
+
+Kernels Used:
+
+Single kernel <- 1. Gaussian with median bandwidth
+		 2. Laplace with median bandwidth
+Multiple kernels <- 1. Gaussian and Laplace each with bandwidths (2^-1,1,2)*(median bandwidth)
+		    2. Gaussian Kernel with bandwidths (2^-2, to 2^2)*(median bandwidth)
+		    3. Laplace Kernel with bandwidths sqrt((2^-2, to 2^2)*(median bandwidth))
+
+Simulation Parameters:
+
+number of repitions done (n.rep) <- 50
+
+number of samples (n) <- 100
+dimensions (d) <- 5, 10, 25, 50, 75, 100, 150
+probability of mixing (p) <- 0
+parameter for generating cov matrix under H0 (sigma.param) <- 0.5, Sigma0 Matrix <- 0.5^|i-j|
+parameter for generating cov matrix under H1 (sigma.mult) <- 1.15, Sigma1 Matrix <- 1.15*Sigma0
+
+mean vector under H0 <- 0
+parameter for generating mean vector under H1 (mu.param) <- 0.1, mean vector under H1 <- mu.param repeated 
+
+
+Note: The simulations done here emulates Ramdas paper. Each time we generate from two distributions and check proportion of rejections.

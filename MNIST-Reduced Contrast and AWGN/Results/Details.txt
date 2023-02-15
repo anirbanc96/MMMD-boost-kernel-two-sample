@@ -1,0 +1,13 @@
+In this experiment I compared between the detecting power of the methods with increasingly added noise didgits.
+The data was scaled to [0,1] before starting the experiment. 
+The sets considered were:
+
+1. c(2,4,8,9) vs c(3,4,7,9)
+2. c(1,2,4,8,9) vs c(1,3,4,7,9)
+3. c(0,1,2,4,8,9) vs c(0,1,3,4,7,9)
+4. c(0,1,2,4,5,8,9) vs c(0,1,3,4,5,7,9)
+5. c(0,1,2,4,5,6,8,9) vs c(0,1,3,4,5,6,7,9)
+
+Number of Repetitions done: 30
+Number of resamples drawn: 150
+

@@ -1,0 +1,9 @@
+In this experiment I compared between the detecting power of the methods with increasingly added gaussian noise.
+The data was scaled to [0,1] before starting the experiment. 
+The set considered was c(1,2,3) vs c(1,2,8)
+
+Errors were added with increasing variance of gaussians - (0,0.2,0.4,0.6,0.8,1)
+
+Number of Repetitions done: 50
+Number of resamples drawn: 100
+

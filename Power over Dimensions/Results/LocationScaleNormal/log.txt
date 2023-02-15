@@ -1,0 +1,15 @@
+
+Starting iteration 3 
+Starting iteration 7 
+Starting iteration 1 
+Starting iteration 5 
+Starting iteration 4 
+Starting iteration 2 
+Starting iteration 6 
+FR test in iteration 0.104 1 
+FR test in iteration 0.084 2 
+FR test in iteration 0.09 3 
+FR test in iteration 0.084 4 
+FR test in iteration 0.068 5 
+FR test in iteration 0.07 6 
+FR test in iteration 0.078 7 

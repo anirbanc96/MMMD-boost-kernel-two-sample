@@ -1,0 +1,43 @@
+
+Starting iteration 2 
+Starting iteration 3 
+Starting iteration 7 
+Starting iteration 1 
+Starting iteration 5 
+Starting iteration 4 
+Starting iteration 6 
+Single Kernel-1 in iteration 0.134 1 
+Single Kernel-1 in iteration 0.178 2 
+Single Kernel-1 in iteration 0.238 3 
+Single Kernel-1 in iteration 0.256 4 
+Single Kernel-1 in iteration 0.276 5 
+Single Kernel-2 in iteration 0.196 1 
+Single Kernel-2 in iteration 0.214 2 
+Single Kernel-2 in iteration 0.338 3 
+Single Kernel-1 in iteration 0.282 6 
+Single Kernel-2 in iteration 0.424 4 
+Single Kernel-2 in iteration 0.474 5 
+Single Kernel-1 in iteration 0.296 7 
+Single Kernel-2 in iteration 0.48 6 
+Single Kernel-2 in iteration 0.566 7 
+Multiple Kernel-1 in iteration 0.188 1 
+Multiple Kernel-1 in iteration 0.29 2 
+Multiple Kernel-1 in iteration 0.46 3 
+Multiple Kernel-1 in iteration 0.558 4 
+Multiple Kernel-1 in iteration 0.608 5 
+Multiple Kernel-1 in iteration 0.654 6 
+Multiple Kernel-2 in iteration 0.224 1 
+Multiple Kernel-2 in iteration 0.34 2 
+Multiple Kernel-2 in iteration 0.498 3 
+Multiple Kernel-2 in iteration 0.676 4 
+Multiple Kernel-2 in iteration 0.756 5 
+Multiple Kernel-1 in iteration 0.684 7 
+Multiple Kernel-2 in iteration 0.804 6 
+Multiple Kernel-3 in iteration 0.188 1 
+Multiple Kernel-3 in iteration 0.306 2 
+Multiple Kernel-3 in iteration 0.484 3 
+Multiple Kernel-3 in iteration 0.64 4 
+Multiple Kernel-3 in iteration 0.724 5 
+Multiple Kernel-2 in iteration 0.838 7 
+Multiple Kernel-3 in iteration 0.736 6 
+Multiple Kernel-3 in iteration 0.788 7 

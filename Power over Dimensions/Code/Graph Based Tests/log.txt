@@ -1,0 +1,22 @@
+
+Starting iteration 2 
+Starting iteration 4 
+Starting iteration 1 
+Starting iteration 3 
+Starting iteration 7 
+Starting iteration 5 
+Starting iteration 6 
+FR test in iteration 0.098 1 
+Generalised Edge Count test in iteration 1 1 
+FR test in iteration 0.078 2 
+Generalised Edge Count test in iteration 1 2 
+FR test in iteration 0.084 3 
+Generalised Edge Count test in iteration 1 3 
+FR test in iteration 0.076 4 
+Generalised Edge Count test in iteration 1 4 
+FR test in iteration 0.078 5 
+Generalised Edge Count test in iteration 1 5 
+FR test in iteration 0.084 6 
+Generalised Edge Count test in iteration 1 6 
+FR test in iteration 0.058 7 
+Generalised Edge Count test in iteration 1 7 

@@ -1,0 +1,25 @@
+
+
+ Starting iteration 4 
+
+ Starting iteration 5 
+
+ Starting iteration 1 
+
+ Starting iteration 7 
+
+ Starting iteration 2 
+
+ Starting iteration 8 
+
+ Starting iteration 6 
+
+ Starting iteration 3 
+FR in iteration 0.056   1 
+FR in iteration 0.058   2 
+FR in iteration 0.05   3 
+FR in iteration 0.036   4 
+FR in iteration 0.05   5 
+FR in iteration 0.062   6 
+FR in iteration 0.04   7 
+FR in iteration 0.062   8 

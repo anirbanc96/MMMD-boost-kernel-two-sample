@@ -1,0 +1,22 @@
+Kernel Tests Used : 
+
+1. Multiple Laplace Kernels with bandwidths : sqrt((2^-3,2^-2,2^-1,1,2)*(median bandwidth^2))
+2. Multiple Gaussian Kernels with bandwidths : (2^-3,2^-2,2^-1,1,2)*(median bandwidth^2)
+3. Mixture of Gaussian and Laplace kernles with the following choice of bandwidths:
+		
+		Gaussian : (2^-2,2^-1,1,2)*(median bandwidth^2)
+		Laplace: sqrt((2^-2,2^-1,1,2)*(median bandwidth^2))
+
+4. Single Gaussian kernel with median bandwidth
+5. Single Laplace kernel with median bandwidth
+
+Simulation Parameters:
+
+number of repetitions: 50
+number of samples considered: 100
+dimension of the data: (10,50,100,150,200,250,300)
+
+
+mu.param <- 1.25 for H1
+For the k^th dimension
+Data generating distribution: H0: N(0,I)	H1: N(mu_vector,I) where mu_vector = rep(mu.param=1.25,d[k])/sqrt(d[k])
