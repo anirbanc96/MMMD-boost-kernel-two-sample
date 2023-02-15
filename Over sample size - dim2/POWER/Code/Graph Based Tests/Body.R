@@ -31,7 +31,7 @@ cl <- makeCluster(cores, methods = FALSE, type = "MPI")
 
 registerDoParallel(cl)
 
-
+# Running experiment
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for each iteration
@@ -55,7 +55,5 @@ for (k in 1:length(n.seq)){
 }
 
 power.FR.mat1 <- cbind(n.seq,power.FR.mat1)
-
+# Writing estimated power values in a csv file
 write.csv(power.FR.mat1, file = "Power-FR.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
