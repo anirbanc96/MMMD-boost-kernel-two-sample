@@ -2,8 +2,7 @@
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 50
@@ -20,6 +19,7 @@ sigma.mult <- 1.22
 # parameter for mean value for H1 distribution
 mu.param <- 0
 
+# Running experiments
 # storing power values for each dimensions
 out.d <- c()
 for (iter in 1:n.rep){
@@ -33,7 +33,7 @@ out.d <- as.matrix(as.data.frame(out.d))
 end <- Sys.time()
 end-start
 
-
+# Storing estimated power under FR test
 single.FR.d1 <- 2*(1:n.rep)
 power.FR.mat1 <- matrix(0, nrow = length(d), ncol = n.rep)
 
@@ -43,6 +43,5 @@ for (k in 1:length(d)){
 
 power.FR.mat1 <- cbind(d,power.FR.mat1)
 
+# Storing the estimated power in a csv file
 write.csv(power.FR.mat1, file = "Power-FR.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#

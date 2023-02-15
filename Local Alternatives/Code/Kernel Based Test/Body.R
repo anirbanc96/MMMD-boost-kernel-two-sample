@@ -2,8 +2,7 @@
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 50
@@ -17,8 +16,7 @@ p <- 0
 sigma.mult <- 1+seq(0,2,length.out = 11)/sqrt(n)
 # parameter for mean value for H1 distribution
 mu.param <- 0
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # Choice of kernel for single and multiple kernel tests
 # poissble choices: 
 # single - "GAUSS" or "LAP" for gaussian or laplacian
@@ -26,10 +24,9 @@ mu.param <- 0
 # exponential bandwidth choice, or mixture of gaussian and laplace kernel and
 # "LAP" for laplace kernel with exponential choice.
 
-# 1st coordinate for single, 2nd for multiple
+# first two coordinates for single, last three for multiple
 kernel.choice <- c("LAP", "GAUSS", "LAP", "GEXP", "MIXED")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # storing power values for each dimensions
 
 # Libraries for parallelising
@@ -65,6 +62,8 @@ end-start
 
 stopCluster(cl)
 
+# Storing estimate power values
+
 single.power.d1 <- 2 + 6*(0:(n.rep-1))
 single.power.d2 <- 3 + 6*(0:(n.rep-1))
 multi.power.d1 <- 4 + 6*(0:(n.rep-1))
@@ -94,5 +93,3 @@ write.csv(power.single.mat2, file = "SinglePower-GAUSS.csv")
 write.csv(power.multi.mat1, file = "MultiPower-LAP.csv")
 write.csv(power.multi.mat2, file = "MultiPower-GEXP.csv")
 write.csv(power.multi.mat3, file = "MultiPower-MIXED.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#

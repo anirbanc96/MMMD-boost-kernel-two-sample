@@ -17,8 +17,7 @@ sigma.param <- 1
 sigma.mult <- 1
 # parameter for mean value for H1 distribution
 mu.param <- 0
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # Choice of kernel for single and multiple kernel tests
 # poissble choices: 
 # single - "GAUSS" or "LAP" for gaussian or laplacian
@@ -28,8 +27,7 @@ mu.param <- 0
 
 # 1st two coordinate for single, last three for multiple
 kernel.choice <- c("LAP","GAUSS", "LAP","GEXP", "MIXED")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # storing power values for each dimensions
 
 

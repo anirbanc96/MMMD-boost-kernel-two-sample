@@ -103,7 +103,7 @@ Y.gen <- function(n, dim, p){
 # INPUTS:
 # x <- data under H0
 # y <- data under H1
-# OUTPUT:  a distance matrix from the combined data x and y
+# OUTPUT:  a distance matrix from the combined data x and y 
 FR.dist <- function(x,y){
   z <- rbind(x,y)
   z.dist.mat <- as.matrix(dist(z))
@@ -117,7 +117,7 @@ FR.dist <- function(x,y){
 # n <- number of data points
 # d <- dimension of the data
 # p <- probability of mixing
-# test.type <- type of test to be done. See gtests documentation for details
+# test.type <- type of test to be done. See gtests documentation for details 
 # n.iter <- number of iterations to be done
 # OUTPUTS: Estimated power of Graph Based test
 
@@ -141,21 +141,17 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
     FRtest <- gTests::g.tests(similarity.mat, 1:n, (n+1):(2*n), 
                               test.type = test.type)
     count <- count + (FRtest[1][[1]][2]<0.05)
-    #print (c(i,count))
   }
   return (count/n.iter)
 }
 
 
 ################################################################################
-################################################################################
-
-################################################################################
 ########################## Power comparison function ###########################
 ################################################################################
 # Function for comparing power over dimensions
 # INPUTS:
-# n.seq <- vector of number of data points
+# n.seq <- vector of sample sizes
 # sigma.param <- the parameter used for generating cov matrix under H0
 # sigma.mult <- the parameter for multiplying cov matrix under H0 to get cov
 # under H1
@@ -165,41 +161,36 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
 # n.iter <- number of iterations performed for estimating power
 # OUTPUT:
 # A data frame having powers of graph based test for different sample sizes
-power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1, 
-                    mu.param = 0, d,p = 0, n.iter = 500){
+power.d <- function(n.seq, sigma.param, sigma.mult, 
+                    mu.param, d, p, n.iter = 500){
   
-  
+  # Keeping track of iterations in a log file
   writeLines(c(""), "log.txt")
   
-  # redefining dimension vector for ease
+  # redefining sample size vector for ease
   n <- n.seq
   
   out.compare <- foreach(k=1:length(n), .combine=rbind, .export = ls(envir=globalenv())) %dopar% {
     
-    #--------------------------------------------------------------------------#
+    # load required libraries
     library(LaplacesDemon)
     library(Rfast)
-    #--------------------------------------------------------------------------#
+    
     # Creating a log file to keep track of progress
     cat(paste("\n","Starting iteration",k,"\n"), 
        file="log.txt", append=TRUE)
-    #--------------------------------------------------------------------------#
     
-    # Sigma0 matrix <- cov matrix under H0
+    # cov matrix under H0
     Sigma0 <- diag(sigma.param, d, d)
     # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
+    
     # mean vector under H0
     mu0 <- rep(0, d)
     # mean vector under H1
     mu1 <- rep(mu.param, d)
     
-    #----------------------------------------------------------------------------#
-    #----------------------------------------------------------------------------#
-    
-    # Estimating asymptotic power under FR test
+    # Estimating asymptotic power of FR test
     out.row.col1 <- FR.test(n[k], d, p, test.type = "o", n.iter)
     cat(paste("FR in iteration",out.row.col1," ",k,"\n"), file="log.txt", append=TRUE)
     

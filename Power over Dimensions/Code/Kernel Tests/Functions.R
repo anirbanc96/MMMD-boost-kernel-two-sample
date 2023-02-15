@@ -97,7 +97,7 @@ Y.gen <- function(n, dim, p){
 ################################################################################
 ########## Function for computing MMD_u^2 between two data vectors #############
 # INPUTS:
-# k <- given kernel
+# k <- given kernel (kernlab object)
 # X,Y <- given dataset
 # OUTPUTS:
 # MMD.out <- value of MMD_{u}^{2} for given kernel k
@@ -121,7 +121,7 @@ compute.MMD <- function(X, Y, k){
 # of kernels
 ################################################################################
 # INPUT:
-# kernel.vec <- a list of given kernels
+# kernel.vec <- a list of given kernels (vector of kernlab objects)
 # X,Y <- given dataset
 # OUTPUT:
 # MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
@@ -138,12 +138,12 @@ compute.MMD.vec <- function(X, Y, kernel.vec){
 }
 ################################################################################
 # Function for estimating the asymptotic covariance matrix under H0 using only 
-# data coming from p
+# data coming from null distribution
 ################################################################################
 # INPUTS
 # n <- sample size
 # x <- data
-# k.vec <- list of kernels
+# k.vec <- list of kernels (list of kernlab objects)
 # OUTPUT
 # The estimated covariance matrix
 
@@ -217,7 +217,7 @@ med.bandwidth <- function(X, Y){
 # INPUTS: 
 # n <- no. of sample of X, i.e. samples from p
 # x <- the data X
-# k <- the kernel to use
+# k <- the kernel to use (kernlab object)
 # OUTPUT: 
 # The estimated cutoff under H0.
 
@@ -254,13 +254,13 @@ single.H0.cutoff <- function(n, x, k, n.iter){
 ############## Function for simulating test using single kernel ################
 # INPUTS
 # n <- number of original samples;
-# d <- dimension of the Gaussian data
+# d <- dimension of the data
 # p <- the probability of mixing.
-# kernel.choice <- choice of kernel considered
+# kernel.choice <- choice of kernel considered ("GAUSS" or "LAP")
 # n.iter <- number of iterations to be done.
 
 # Output
-# proportion of iterations rejected
+# proportion of rejections
 
 Single.MMD <- function(n, d, p, kernel.choice, n.iter){
   
@@ -338,7 +338,7 @@ min.max.band <- function(X, Y){
 # OUTPUT
 # a vector of bandwidths
 
-expo.band <- function(X,Y, l0 = -3, l1 = 3){
+expo.band <- function(X,Y, l0, l1){
   # Computing median bandwidth
   med.band <- med.bandwidth(X,Y)
   
@@ -356,7 +356,7 @@ expo.band <- function(X,Y, l0 = -3, l1 = 3){
 ################################################################################
 # INPUTS
 # x <- a vector of values
-# param <- the estimated covariance matrix
+# param <- a matrix of appropriate dimensions
 # OUTPUT
 # value of the function applied on the vector x
 
@@ -371,7 +371,7 @@ multi.func <- function(x, param){
 # INPUT:
 # n <- number of samples from distribution of X.
 # x <- the oberseved data coming from p
-# k.vec <- list of kernels to use
+# k.vec <- list of kernels to use (list of kernlab objects)
 # invcov <- the estimated inverse covariance matrix
 # n.iter <- number of iterations for finding threshold
 # OUTPUT:
@@ -381,7 +381,8 @@ multi.func <- function(x, param){
 # kernel and the independently generated gaussian variables ####################
 multi.k.approx.stat <- function(k.mat, u.mat){
   
-  # computing n.iter many samples of approximating distribution for a kernel
+  # computing n.iter many samples of approximating distribution for a single
+  # kernel
   test.stat <- colSums(t(u.mat) * (k.mat %*% t(u.mat))) - 2*tr(k.mat)
   
   return (test.stat)
@@ -431,7 +432,7 @@ multi.H0.cutoff <- function(n, x, k.vec, invcov, n.iter){
 ###### Function for providing list of kernels according to user choice #########
 # INPUT: 
 # X,Y <- observed data (used for finding bandwidth)
-# kernel.choice <- choice of kernel (between rbf laplace or mixed)
+# kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED", "LAP")
 # OUTPUT:
 # A list containing kernels using a pre-specified bandwidth selection method
 k.choice <- function(X,Y, kernel.choice){
@@ -501,10 +502,11 @@ k.choice <- function(X,Y, kernel.choice){
 ################################################################################
 ############ Function for simulating test using multiple kernel ################
 # INPUTS
-# n <- number of original samples;
+# n <- number of original samples
 # d <- dimension of the data
 # p <- mixing probability
-# kernel.choice <- a string representing the chosen kernel method
+# kernel.choice <- a string representing the chosen kernel method 
+#                  ("MINMAX", "GEXP", "MIXED", "LAP")
 # n.iter <- number of iterations for finding threshold
 
 # OUTPUT
@@ -545,7 +547,6 @@ Multi.MMD <- function(n, d, p, kernel.choice, n.iter){
     
     # Adding rejection to previous count of rejections
     count <- count + (MMD.samp.func > MMD.func.threshold)
-    #print (c(i,count))
   }
   return (count/n.iter)
 }
@@ -573,7 +574,6 @@ Multi.MMD <- function(n, d, p, kernel.choice, n.iter){
 # dimensions
 power.d <- function(n, sigma.param, sigma.mult, mu.param, d.seq, p,
                     kernel.choice, n.iter = 500){
-  # writing a log file to keep track of progress
   
   # redefining dimension vector for ease
   d <- d.seq
@@ -594,7 +594,7 @@ power.d <- function(n, sigma.param, sigma.mult, mu.param, d.seq, p,
     # covariance matrix and hence it should be made equal to the variance and
     # not the standard deviation in that case
     ############################################################################
-    # Sigma0 matrix <- cov matrix under H0
+    # cov matrix under H0
     Sigma0 <- matrix(0, nrow = d[k], ncol = d[k])
     for(i in 1:d[k]){
       for(j in 1:d[k]){
@@ -606,18 +606,13 @@ power.d <- function(n, sigma.param, sigma.mult, mu.param, d.seq, p,
     
     #Sigma0 <- diag(sigma.param, d[k], d[k])
     
-    #---------------------------######################-------------------------#
     # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
+    
     # mean vector under H0
     mu0 <- rep(0, d[k])
     # mean vector under H1
     mu1 <- rep(mu.param, d[k])
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
-    
     
     # Estimating power under single kernel test
     

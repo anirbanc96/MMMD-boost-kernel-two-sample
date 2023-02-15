@@ -7,7 +7,7 @@
 
 # INPUTS:
 # X,Y <- given datasets
-# k <- given kernel
+# k <- given kernel (kernlab objects)
 
 # OUTPUTS:
 # MMD.out <- value of MMD_{u}^{2} for given kernel k
@@ -33,7 +33,7 @@ compute.MMD <- function(X, Y, k){
 
 # INPUT:
 # X,Y <- given dataset
-# kernel.vec <- a list of given kernels
+# kernel.vec <- a list of given kernels (kernlab objects)
 
 # OUTPUT:
 # MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
@@ -61,7 +61,7 @@ compute.MMD.vec <- function(X, Y, kernel.vec){
 # INPUTS
 # n <- sample size
 # x <- data
-# k.vec <- list of kernels
+# k.vec <- list of kernels (kernlab objects)
 
 # OUTPUT
 # The estimated covariance matrix
@@ -137,7 +137,7 @@ med.bandwidth <- function(X, Y){
 # INPUTS: 
 # m <- no. of sample from H0 (here the code is done assuming balanced condition)
 # x <- the data X
-# k <- the kernel to use
+# k <- the kernel to use (kernlab objects)
 # n.iter <- number of iterations done to estimate H0 cut-off
 
 # OUTPUT: 
@@ -180,7 +180,7 @@ single.H0.cutoff <- function(m, x, k, n.iter = 1000){
 # INPUTS
 # m, n <- number of samples in the H0 and H1 datasets;
 # resamp.size <- number of resamples considered
-# kernel.choice <- choice of the kernel considered
+# kernel.choice <- choice of the kernel considered ("GAUSS", "LAP")
 # n.iter <- number of iterations to be done for estimating power
 
 # Output
@@ -271,7 +271,7 @@ min.max.band <- function(X, Y){
 # OUTPUT
 # a vector of bandwidths
 
-expo.band <- function(X,Y, l0 = -3, l1 = 3){
+expo.band <- function(X,Y, l0, l1){
   # Computing median bandwidth
   med.band <- med.bandwidth(X,Y)
   
@@ -292,7 +292,7 @@ expo.band <- function(X,Y, l0 = -3, l1 = 3){
 
 # INPUTS
 # x <- a vector of values
-# param <- the estimated and singularity corrected covariance matrix
+# param <- a matrix of appropriate dimensions
 
 # OUTPUT
 # value of the function applied on the vector x
@@ -310,7 +310,7 @@ multi.func <- function(x, param){
 # n <- number of samples from distribution of X.
 # x <- the oberseved data coming from p
 # invcov <- the estimated inverse covariance matrix
-# k.vec <- list of kernels to use
+# k.vec <- list of kernels to use (kernlab objects)
 # OUTPUT:
 # The upper alpha cutoff under null.
 
@@ -370,7 +370,7 @@ multi.H0.cutoff <- function(n, x, k.vec, invcov, n.iter = 1000){
 ###### Function for providing list of kernels according to user choice #########
 # INPUT: 
 # X,Y <- observed data (used for finding bandwidth)
-# kernel.choice <- choice of kernel (between rbf laplace or mixed)
+# kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED" or "LAP")
 # OUTPUT:
 # A list containing kernels using a pre-specified bandwidth selection method
 
@@ -442,7 +442,8 @@ k.choice <- function(X,Y, kernel.choice){
 # INPUTS
 # m, n <- number of samples in the H0 and H1 datasets;
 # resamp.size <- number of resamples considered
-# kernel.choice <- choice of the kernel considered
+# kernel.choice <- choice of the kernel considered 
+#                  ("MINMAX", "GEXP", "MIXED" or "LAP")
 # n.iter <- number of iterations to be done for estimating power
 
 # Output

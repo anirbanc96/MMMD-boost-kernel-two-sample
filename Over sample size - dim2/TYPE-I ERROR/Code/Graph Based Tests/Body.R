@@ -2,8 +2,7 @@
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 50
@@ -13,9 +12,9 @@ n.seq <- c(50, 100, 200, 300, 400, 500)
 d <- 2
 # probability of mixture
 p <- 0
-# parameter for sigma0 matrix generation
+# parameter for cov matrix generation under H0
 sigma.param <- 1
-# parameter for sigma1 = c*sigma0 matrix generation
+# parameter for cov matrix generation under H1
 sigma.mult <- 1
 # parameter for mean value for H1 distribution
 mu.param <- 0
@@ -30,7 +29,7 @@ cl <- makeCluster(cores, methods = FALSE, type = "MPI")
 
 registerDoParallel(cl)
 
-
+# Running experiments
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
@@ -45,6 +44,7 @@ end-start
 
 stopCluster(cl)
 
+# storing type I error values
 single.FR.d1 <- 2*(1:n.rep)
 power.FR.mat1 <- matrix(0, nrow = length(n.seq), ncol = n.rep)
 
@@ -55,5 +55,3 @@ for (k in 1:length(n.seq)){
 power.FR.mat1 <- cbind(n.seq,power.FR.mat1)
 
 write.csv(power.FR.mat1, file = "Power-FR.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#

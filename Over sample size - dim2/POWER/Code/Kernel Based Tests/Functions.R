@@ -7,9 +7,9 @@
 X.gen <- function(n, dim, p, gen.var){
   
   ##############################################################################
-  # input: n <- number of samples (integer)
-  #        dim <- dimension of the data (integer)
-  #        p <- probability of mixing (real number in [0,1])
+  # input: n <- number of samples
+  #        dim <- dimension of the data
+  #        p <- probability of mixing
   #        gen.var <- list containing: mu0 <- mean under null
   #                                    mu1 <- mean under alternative
   #                                    Sigma0 <- Covariance under null
@@ -52,9 +52,9 @@ X.gen <- function(n, dim, p, gen.var){
 Y.gen <- function(n, dim, p, gen.var){
   
   ##############################################################################
-  # input: n <- number of samples (integer)
-  #        dim <- dimension of the data (integer)
-  #        p <- probability of mixing (real number in [0,1])
+  # input: n <- number of samples
+  #        dim <- dimension of the data
+  #        p <- probability of mixing
   #        gen.var <- list containing: mu0 <- mean under null
   #                                    mu1 <- mean under alternative
   #                                    Sigma0 <- Covariance under null
@@ -100,7 +100,7 @@ compute.MMD <- function(X, Y, k){
   
   ##############################################################################
   # input: X,Y <- given data matrix
-  #        k <- considerd kernel
+  #        k <- considerd kernel (kernlab object)
   # output: MMD.out <- the value of MMD_{u}^{2} between X and Y
   ##############################################################################
 
@@ -122,7 +122,7 @@ compute.MMD.vec <- function(X, Y, kernel.vec){
   
   ##############################################################################
   # input: X,Y <- given data matrix
-  #        k <- considerd kernel list
+  #        k <- considerd kernel list (list of kernlab objects)
   # output: MMD.vec <- the value of MMD_{u}^{2} between X and Y for list k
   ##############################################################################
   
@@ -145,7 +145,7 @@ est.cov <- function(n,x,k.vec){
   ##############################################################################
   # input: n <- number of samples
   #        x <- data under null distribution
-  #        k.vec <- list of kernels considered
+  #        k.vec <- list of kernels considered (list of kernlab objects)
   # output: estimated covariance matrix with small additive error
   ##############################################################################
   
@@ -208,7 +208,7 @@ single.H0.cutoff <- function(n, x, k, n.iter = 1000){
   ##############################################################################
   # input: n <- number of samples
   #        x <- data under H0
-  #        k <- chosen kernel (using kernlab package)
+  #        k <- chosen kernel (kernlab object)
   #        n.iter <- number of iterations done to estimate quantile
   # output: H0.thresh <- upper alpha level threshold
   ##############################################################################
@@ -232,7 +232,7 @@ single.H0.cutoff <- function(n, x, k, n.iter = 1000){
 
 ################### Estimating Power for single kernel #########################
 
-Single.MMD <- function(n, d, gen.var, p = 0, kernel.choice,
+Single.MMD <- function(n, d, gen.var, p, kernel.choice,
                        n.iter = 1000){
   
   ##############################################################################
@@ -243,7 +243,7 @@ Single.MMD <- function(n, d, gen.var, p = 0, kernel.choice,
   #                                    Sigma0 <- Covariance under null
   #                                    Sigma1 <- Covariance under alternative
   #        p <- mixing probability
-  #        kernel.choice <- a string for choice of kernels
+  #        kernel.choice <- a string for choice of kernels ("GAUSS" or "LAP")
   #        n.iter <- number of iterations done for estimating power
   # output: proportion of rejections
   ##############################################################################
@@ -304,7 +304,7 @@ min.max.band <- function(X, Y){
 
 ##################### Choice of bandwidth using 2^l rule #######################
 
-expo.band <- function(X,Y, l0 = -3, l1 = 3){
+expo.band <- function(X,Y, l0, l1){
   
   ##############################################################################
   # input: X,Y <- input datasets
@@ -329,8 +329,8 @@ expo.band <- function(X,Y, l0 = -3, l1 = 3){
 multi.func <- function(x, param){
   
   ##############################################################################
-  # input: x <- dataset under H0
-  #        param <- the inverted covariance matrix
+  # input: x <- a vector
+  #        param <- matrix of appropriate dimensions
   # output: the value of test statistic
   ##############################################################################
   
@@ -364,7 +364,7 @@ multi.H0.cutoff <- function(n, x, k.vec, n.iter = 1000){
   ##############################################################################
   # input: n <- number of samples
   #        x <- dataset under H0
-  #        k.vec <- list of considered kernels
+  #        k.vec <- list of considered kernels (list of kernlab objects)
   #        n.iter <- number of iterations needed to estimate cut-off
   # output: H0.thresh <- upper alpha level threshold
   ##############################################################################
@@ -398,8 +398,9 @@ k.choice <- function(X,Y, kernel.choice){
   
   ##############################################################################
   # input: X,Y <- given datasets
-  #        kernel.choice <- string for choice of kernels
-  # output: list of kernels according to given choice
+  #        kernel.choice <- string for choice of kernels 
+  #                         ("MINMAX", "GEXP", "MIXED", "LAP")
+  # output: list of kernels (kernlab objects) according to given choice
   ##############################################################################
   
   # List of kernels using min-max bandwidth
@@ -464,8 +465,7 @@ k.choice <- function(X,Y, kernel.choice){
 
 ################### Estimating Power for multi kernel ##########################
 
-Multi.MMD <- function(n, d,gen.var, p = 0, kernel.choice = "GEXP",
-                      n.iter = 1000){
+Multi.MMD <- function(n, d,gen.var, p, kernel.choice, n.iter = 1000){
   
   ##############################################################################
   # input: n <- number of samples
@@ -513,9 +513,8 @@ Multi.MMD <- function(n, d,gen.var, p = 0, kernel.choice = "GEXP",
 ################## Computing power for different tests #########################
 ################################################################################
 
-power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1, 
-                    mu.param = 0, d,p = 0,
-                    kernel.choice = c("GAUSS", "GEXP", "MIXED"), n.iter = 500){
+power.d <- function(n.seq, sigma.param, sigma.mult, mu.param, d, p,
+                    kernel.choice, n.iter = 500){
   
   ##############################################################################
   # input: n.seq <- vector of sample values
@@ -535,22 +534,22 @@ power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1,
   out.compare <- c()
   for (k in 1:length(n)){
     
-    #--------------------------------------------------------------------------#
+    # loading required libraries
     library(LaplacesDemon)
     library(Rfast)
-    #--------------------------------------------------------------------------#
-    Sigma0 <- diag(sigma.param, d, d)
+    
     # cov matrix under H0
+    Sigma0 <- diag(sigma.param, d, d)
+    # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
-    #--------------------------------------------------------------------------#
     
     # mean vector under H0
     mu0 <- rep(0, d)
     # mean vector under H1
     mu1 <- rep(mu.param, d)
     
+    # list containing mean and cov under H0 and H1
     gen.var <- list(mu0, mu1, Sigma0, Sigma1)
-    #--------------------------------------------------------------------------#
    
     # Estimating power under single kernel test
     
@@ -561,7 +560,7 @@ power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1,
     out.row.col2 <- Single.MMD(n[k], d,gen.var, p,kernel.choice[2], n.iter)
     cat(paste("Single Kernel-2 in iteration",out.row.col2," ",k,"\n"),
         file="log.txt", append=TRUE)
-    #--------------------------------------------------------------------------#
+    
     # Estimating power under multiple kernel test
     
     out.row.col3 <- Multi.MMD(n[k], d,gen.var, p,kernel.choice[3], n.iter)
@@ -575,7 +574,7 @@ power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1,
     out.row.col5 <- Multi.MMD(n[k], d,gen.var, p,kernel.choice[5], n.iter)
     cat(paste("Multiple Kernel-3 in iteration",out.row.col5," ",k,"\n"),
         file="log.txt", append=TRUE)
-    #--------------------------------------------------------------------------#
+    
     # Concatenating all the outputs
     out.row <- c(n[k],out.row.col1, out.row.col2, out.row.col3, out.row.col4,
                  out.row.col5)

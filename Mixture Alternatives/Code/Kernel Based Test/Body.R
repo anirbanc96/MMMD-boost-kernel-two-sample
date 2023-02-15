@@ -2,15 +2,13 @@
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 50
 # Number of data points
 n <- 100
 # Dimension vector of data
-# Note: Change the following value for different dimensions
 d <- 150
 # probability of mixture
 p <- seq(0,1,length.out = 6)
@@ -47,7 +45,7 @@ registerDoParallel(cl)
 
 #registerDoParallel(cl)
 
-
+# Running experiment
 out.p <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
@@ -62,6 +60,8 @@ end <- Sys.time()
 end-start
 
 stopCluster(cl)
+
+# Storing estimated power values
 
 single.power.d1 <- 2+6*(0:(n.rep-1))
 single.power.d2 <- 3+6*(0:(n.rep-1))
@@ -87,10 +87,9 @@ power.multi.mat1 <- cbind(p,power.multi.mat1)
 power.multi.mat2 <- cbind(p,power.multi.mat2)
 power.multi.mat3 <- cbind(p,power.multi.mat3)
 
+# Saving estimated power values as csv filed
 write.csv(power.single.mat1, file = "SinglePower-LAP.csv")
 write.csv(power.single.mat2, file = "SinglePower-GAUSS.csv")
 write.csv(power.multi.mat1, file = "MultiPower-LAP.csv")
 write.csv(power.multi.mat2, file = "MultiPower-GEXP.csv")
 write.csv(power.multi.mat3, file = "MultiPower-MIXED.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
