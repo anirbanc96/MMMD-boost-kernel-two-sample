@@ -1,9 +1,11 @@
 Kernels Used:
 
+Note: In kernlab package gaussian kernel = exp(-sigma|x-x'|^2), laplace kernel = exp(-sigma|x-x|')
+
 Single kernel <- 1. Gaussian with median bandwidth
 		 2. Laplace with median bandwidth
-Multiple kernels <- 1.Gaussian and Laplace each with bandwidths (2^-1,1,2)*(median bandwidth^2) (square root taken for laplace)
-		    2.Gaussian kernels with bandwidths (2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2)
+Multiple kernels <- 1.Gaussian and Laplace each with bandwidths sqrt((2^-1,1,2)*(median bandwidth^2))
+		    2.Gaussian kernels with bandwidths sqrt((2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2))
 		    3.Laplace kernels with bandwidths sqrt((2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth^2))
 
 Simulation Parameters:
