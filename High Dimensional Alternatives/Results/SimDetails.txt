@@ -1,10 +1,12 @@
 Kernel Tests Used : 
 
+Note: In kernlab package gaussian kernel = exp(-sigma|x-x'|^2), laplace kernel = exp(-sigma|x-x|')
+
 1. Multiple Laplace Kernels with bandwidths : sqrt((2^-3,2^-2,2^-1,1,2)*(median bandwidth^2))
-2. Multiple Gaussian Kernels with bandwidths : (2^-3,2^-2,2^-1,1,2)*(median bandwidth^2)
+2. Multiple Gaussian Kernels with bandwidths : sqrt((2^-3,2^-2,2^-1,1,2)*(median bandwidth^2))
 3. Mixture of Gaussian and Laplace kernles with the following choice of bandwidths:
 		
-		Gaussian : (2^-2,2^-1,1,2)*(median bandwidth^2)
+		Gaussian : sqrt((2^-2,2^-1,1,2)*(median bandwidth^2))
 		Laplace: sqrt((2^-2,2^-1,1,2)*(median bandwidth^2))
 
 4. Single Gaussian kernel with median bandwidth
