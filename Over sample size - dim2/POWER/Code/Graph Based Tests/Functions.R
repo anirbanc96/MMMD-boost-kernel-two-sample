@@ -148,14 +148,11 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
 
 
 ################################################################################
-################################################################################
-
-################################################################################
 ########################## Power comparison function ###########################
 ################################################################################
 # Function for comparing power over dimensions
 # INPUTS:
-# n.seq <- vector of number of data points
+# n.seq <- vector of sample sizes
 # sigma.param <- the parameter used for generating cov matrix under H0
 # sigma.mult <- the parameter for multiplying cov matrix under H0 to get cov
 # under H1
@@ -171,7 +168,7 @@ power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1,
   
   writeLines(c(""), "log.txt")
   
-  # redefining dimension vector for ease
+  # redefining sample size vector for ease
   n <- n.seq
   
   out.compare <- foreach(k=1:length(n), .combine=rbind, .export = ls(envir=globalenv())) %dopar% {
