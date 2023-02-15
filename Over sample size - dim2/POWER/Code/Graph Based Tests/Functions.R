@@ -9,11 +9,11 @@
 
 ################### Function for generating samples under null #################
 # INPUT: 
-# n <- no. of samples
-# dim <- dimension of the data
-# p <- probability of mixture
+# n <- no. of samples (integer)
+# dim <- dimension of the data (integer)
+# p <- probability of mixture (double in [0,1])
 # OUTPUT:
-# n many samples from the distribution under H0
+# n many samples from the distribution under H0 (a matrix of dimension nxd)
 
 X.gen <- function(n, dim, p){
   
@@ -53,11 +53,11 @@ X.gen <- function(n, dim, p){
 ################################################################################
 ############### Function for generating samples under alternative ##############
 # INPUT: 
-# n <- no. of samples
-# dim <- dimension of the data
-# p <- probability of mixture
+# n <- no. of samples (integer)
+# dim <- dimension of the data (integer)
+# p <- probability of mixture (double in [0,1])
 # OUTPUT:
-# n many samples from the distribution under H1
+# n many samples from the distribution under H1 (a matrix of dimension nxd)
 Y.gen <- function(n, dim, p){
   
   # generating sample from gaussian denoted by mixture probability = 0
@@ -101,9 +101,10 @@ Y.gen <- function(n, dim, p){
 
 ############### Function for computing Euclidean Distance Matrix ###############
 # INPUTS:
-# x <- data under H0
-# y <- data under H1
-# OUTPUT:  a distance matrix from the combined data x and y
+# x <- data under H0 (matrix of dimension mxd)
+# y <- data under H1 (matrix of dimension nxd)
+# OUTPUT:  a distance matrix from the combined data x and y 
+#          (matrix of dim (m+n)x(m+n))
 FR.dist <- function(x,y){
   z <- rbind(x,y)
   z.dist.mat <- as.matrix(dist(z))
@@ -114,12 +115,13 @@ FR.dist <- function(x,y){
 
 ############### Function for estimating power of Graph Based tests #############
 # INPUTS:
-# n <- number of data points
-# d <- dimension of the data
-# p <- probability of mixing
-# test.type <- type of test to be done. See gtests documentation for details
-# n.iter <- number of iterations to be done
-# OUTPUTS: Estimated power of Graph Based test
+# n <- number of data points (integer)
+# d <- dimension of the data (integer)
+# p <- probability of mixing (double in [0,1])
+# test.type <- type of test to be done. See gtests documentation for details 
+#              (string)
+# n.iter <- number of iterations to be done (integer)
+# OUTPUTS: Estimated power of Graph Based test (double in [0,1])
 
 FR.test <- function(n,d,p, test.type,n.iter = 1000){
   
@@ -141,7 +143,6 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
     FRtest <- gTests::g.tests(similarity.mat, 1:n, (n+1):(2*n), 
                               test.type = test.type)
     count <- count + (FRtest[1][[1]][2]<0.05)
-    #print (c(i,count))
   }
   return (count/n.iter)
 }
@@ -152,16 +153,17 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
 ################################################################################
 # Function for comparing power over dimensions
 # INPUTS:
-# n.seq <- vector of sample sizes
-# sigma.param <- the parameter used for generating cov matrix under H0
+# n.seq <- vector of sample sizes (vector)
+# sigma.param <- the parameter used for generating cov matrix under H0 (double)
 # sigma.mult <- the parameter for multiplying cov matrix under H0 to get cov
-# under H1
-# mu.param <- the parameter for generating mean under H1
-# d <- dimension of data
-# p <- the mixing probability
-# n.iter <- number of iterations performed for estimating power
+# under H1 (double)
+# mu.param <- the parameter for generating mean under H1 (double)
+# d <- dimension of data (integer)
+# p <- the mixing probability (double in [0,1])
+# n.iter <- number of iterations performed for estimating power (integer)
 # OUTPUT:
 # A data frame having powers of graph based test for different sample sizes
+# (dataframe)
 power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1, 
                     mu.param = 0, d,p = 0, n.iter = 500){
   
@@ -173,30 +175,25 @@ power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1,
   
   out.compare <- foreach(k=1:length(n), .combine=rbind, .export = ls(envir=globalenv())) %dopar% {
     
-    #--------------------------------------------------------------------------#
+    # load required libraries
     library(LaplacesDemon)
     library(Rfast)
-    #--------------------------------------------------------------------------#
+    
     # Creating a log file to keep track of progress
     cat(paste("\n","Starting iteration",k,"\n"), 
        file="log.txt", append=TRUE)
-    #--------------------------------------------------------------------------#
     
-    # Sigma0 matrix <- cov matrix under H0
+    # cov matrix under H0
     Sigma0 <- diag(sigma.param, d, d)
     # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
+    
     # mean vector under H0
     mu0 <- rep(0, d)
     # mean vector under H1
     mu1 <- rep(mu.param, d)
     
-    #----------------------------------------------------------------------------#
-    #----------------------------------------------------------------------------#
-    
-    # Estimating asymptotic power under FR test
+    # Estimating asymptotic power of FR test
     out.row.col1 <- FR.test(n[k], d, p, test.type = "o", n.iter)
     cat(paste("FR in iteration",out.row.col1," ",k,"\n"), file="log.txt", append=TRUE)
     
