@@ -504,6 +504,7 @@ k.choice <- function(X,Y, kernel.choice){
 # d <- dimension of the data
 # p <- mixing probability
 # kernel.choice <- a string representing the chosen kernel method
+#                  ("MINMAX", "GEXP", "MIXED" or "LAP")
 
 # OUTPUT
 # proportion of iterations rejected
@@ -564,8 +565,7 @@ Multi.MMD <- function(n, d, p, kernel.choice, n.iter){
 # OUTPUT:
 # A data frame having powers of single and multiple test under various
 # dimensions
-power.d <- function(n, sigma.param = 0.4, sigma.mult = 1.1, 
-                    mu.param = 0, d.seq,p = 0,
+power.d <- function(n, sigma.param, sigma.mult, mu.param, d.seq, p,
                     kernel.choice, n.iter = 500){
   
   writeLines(c(""), "log.txt")
@@ -576,25 +576,22 @@ power.d <- function(n, sigma.param = 0.4, sigma.mult = 1.1,
   out.compare <- foreach(k=1:length(d), .combine=rbind,
                          .export = ls(envir=globalenv())) %dopar% {
     
-    #--------------------------------------------------------------------------#
+    # Loading required libraries
     library(LaplacesDemon)
     library(Rfast)
-    #--------------------------------------------------------------------------#
+    
     # Creating a log file to keep track of progress
     cat(paste("\n","Starting iteration",k,"\n"), 
         file="log.txt", append=TRUE)
-    #--------------------------------------------------------------------------#
-    Sigma0 <- diag(sigma.param, d[k],d[k])
     # cov matrix under H0
+    Sigma0 <- diag(sigma.param, d[k],d[k])
+    # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
+    
     # mean vector under H0
     mu0 <- rep(0, d[k])
     # mean vector under H1
     mu1 <- rep(mu.param/sqrt(d[k]), d[k])
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
     
     
     # Estimating power under single kernel test
