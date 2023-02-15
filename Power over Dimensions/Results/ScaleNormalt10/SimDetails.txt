@@ -5,8 +5,8 @@ Kernels Used:
 Single kernel <- 1. Gaussian with median bandwidth
 		 2. Laplace with median bandwidth
 Multiple kernels <- 1. Gaussian and Laplace each with bandwidths (2^-1,1,2)*(median bandwidth)
-		    2. Gaussian Kernel with bandwidths (2^-2, to 2^2)*(median bandwidth)
-		    3. Laplace Kernel with bandwidths sqrt((2^-2, to 2^2)*(median bandwidth))
+		    2. Gaussian Kernel with bandwidths (2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth)
+		    3. Laplace Kernel with bandwidths sqrt((2^-2, 2^-1, 1, 2, 2^2)*(median bandwidth))
 
 Simulation Parameters:
 
@@ -20,6 +20,4 @@ parameter for generating cov matrix under H1 (sigma.mult) <- 1.22, Sigma1 Matrix
 
 mean vector under H0 <- 0
 parameter for generating mean vector under H1 (mu.param) <- 0, mean vector under H1 <- mu.param repeated 
-
-
-Note: The simulations done here emulates Ramdas paper. Each time we generate from two distributions and check proportion of rejections.
+number of iterations for threshold and estimated power (n.iter) <- 500
