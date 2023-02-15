@@ -161,10 +161,10 @@ FR.test <- function(n,d,p, test.type,n.iter = 1000){
 # n.iter <- number of iterations performed for estimating power
 # OUTPUT:
 # A data frame having powers of graph based test for different sample sizes
-power.d <- function(n.seq, sigma.param = 0.4, sigma.mult = 1.1, 
-                    mu.param = 0, d,p = 0, n.iter = 500){
+power.d <- function(n.seq, sigma.param, sigma.mult, 
+                    mu.param, d, p, n.iter = 500){
   
-  
+  # Keeping track of iterations in a log file
   writeLines(c(""), "log.txt")
   
   # redefining sample size vector for ease
