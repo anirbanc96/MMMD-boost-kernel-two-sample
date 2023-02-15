@@ -1,19 +1,18 @@
 ################################################################################
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
+
+# Calling the functions required for experiment
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 50
-# Number of data points
+# Sample size
 n <- 100
 # Dimension vector of data
 d <- c(5, 10, 25, 50,75,100,150)
 # probability of mixture
-#------------------------------------------------------------------------------#
-# Note: Change the following values according to the simulation
 p <- 1
 # parameter for sigma0 matrix generation
 sigma.param <- 0.5
@@ -21,8 +20,7 @@ sigma.param <- 0.5
 sigma.mult <- 1.22
 # parameter for mean value for H1 distribution
 mu.param <- 0
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # Choice of kernel for single and multiple kernel tests
 # poissble choices: 
 # single - "GAUSS" or "LAP" for gaussian or laplacian
@@ -30,8 +28,8 @@ mu.param <- 0
 # exponential bandwidth choice, or mixture of gaussian and laplace kernel and
 # "LAP" for laplace kernel with exponential bandwidth choice.
 
-# 1st two coordinate for single, Last three for multiple
-kernel.choice <- c("LAP","GAUSS", "LAP","GEXP", "MIXED")
+# First two coordinate for single, Last three for multiple
+kernel.choice <- c("LAP", "GAUSS", "LAP", "GEXP", "MIXED")
 
 # Libraries for parallelising
 library(foreach)
@@ -50,6 +48,8 @@ registerDoParallel(cl)
 
 #registerDoParallel(cl)
 
+
+# Running experiment
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
@@ -102,5 +102,3 @@ write.csv(power.single.mat2, file = "SinglePower-GAUSS.csv")
 write.csv(power.multi.mat1, file = "MultiPower-LAP.csv")
 write.csv(power.multi.mat2, file = "MultiPower-GEXP.csv")
 write.csv(power.multi.mat3, file = "MultiPower-MIXED.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
