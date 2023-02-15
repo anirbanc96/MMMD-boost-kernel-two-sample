@@ -433,6 +433,7 @@ multi.H0.cutoff <- function(n, x, k.vec, invcov, n.iter){
 # kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED" or "LAP")
 # OUTPUT:
 # A list containing kernels using a pre-specified bandwidth selection method
+# (kernlab objects)
 k.choice <- function(X,Y, kernel.choice){
   
   # List of kernels using min-max bandwidth
