@@ -1,0 +1,7 @@
+,experiment,d,repetitions,m,n,approx_type,kernel_type,l_minus_l_plus,function_type,perturbation_or_Qi,power
+0,1: uniform alternative,2,2,500,500,wild bootstrap,gaussian,"(-6, -2)",increasing,1,0.5
+1,1: uniform alternative,2,2,500,500,wild bootstrap,gaussian,"(-6, -2)",increasing,2,0.0
+2,1: uniform alternative,2,2,500,500,wild bootstrap,gaussian,"(-6, -2)",increasing,3,0.0
+3,1: uniform alternative,2,2,500,500,wild bootstrap,laplace,"(-6, -2)",increasing,1,1.0
+4,1: uniform alternative,2,2,500,500,wild bootstrap,laplace,"(-6, -2)",increasing,2,0.0
+5,1: uniform alternative,2,2,500,500,wild bootstrap,laplace,"(-6, -2)",increasing,3,0.0
