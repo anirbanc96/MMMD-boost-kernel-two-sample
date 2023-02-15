@@ -33,7 +33,7 @@ out.d <- as.matrix(as.data.frame(out.d))
 end <- Sys.time()
 end-start
 
-
+# Storing estimated power under FR test
 single.FR.d1 <- 2*(1:n.rep)
 power.FR.mat1 <- matrix(0, nrow = length(d), ncol = n.rep)
 
