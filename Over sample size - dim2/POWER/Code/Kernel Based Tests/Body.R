@@ -20,8 +20,7 @@ sigma.param <- 1
 sigma.mult <- 1.25
 # parameter for mean value for H1 distribution
 mu.param <- 0
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # Choice of kernel for single and multiple kernel tests
 # poissble choices: 
 # single - "GAUSS" or "LAP" for gaussian or laplacian
@@ -36,6 +35,7 @@ kernel.choice <- c("LAP","GAUSS", "LAP","GEXP", "MIXED")
 library(foreach)
 library(doParallel)
 
+################################################################################
 # Comment following lines if not using MPI
 library(snow)
 
@@ -94,6 +94,7 @@ power.multi.mat1 <- cbind(n.seq,power.multi.mat1)
 power.multi.mat2 <- cbind(n.seq,power.multi.mat2)
 power.multi.mat3 <- cbind(n.seq,power.multi.mat3)
 
+# Writing csv filed for the stroing the values
 write.csv(power.single.mat1, file = "SinglePower-LAP.csv")
 write.csv(power.single.mat2, file = "SinglePower-GAUSS.csv")
 write.csv(power.multi.mat1, file = "MultiPower-LAP.csv")
