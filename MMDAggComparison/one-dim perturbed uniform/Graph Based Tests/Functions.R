@@ -1,10 +1,6 @@
 ################################################################################
 ########################### Common Functions ###################################
 ################################################################################
-# mean under H0 <- mu0,mean under H1 <- mu1; 
-# Covariance Matrix under H0 <- Sigma0, 
-# Covariance Matrix under H1 <- Sigma1 
-# are used as global variables and hence are not passed as function arguments
 
 
 ################### Function for generating samples under null #################
@@ -27,7 +23,16 @@ X.gen <- function(n,dim){
 
 #------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------#
-# Function for generating samples under alternative
+# Function for generating samples under perturbed uniform distribution
+# INPUT: 
+# n <- no. of samples
+# dim <- dimension of the data
+# num_perturb <- number of perturbations
+# sob_smooth <- sobolev smoothness parameter
+# c_d <- multiplier for perturbed density
+# theta_seed <- seed for generating theta
+# OUTPUT:
+# n many samples from the distribution under H1
 
 Y.gen <- function(n, dim, num_perturb, sob_smooth = 1, c_d = 2.7, 
                   theta_seed = 100){
