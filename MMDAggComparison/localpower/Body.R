@@ -1,14 +1,18 @@
 
 # Function for calling pyhton code from MMDAgg Paper.
-# INPUT:
-# x,y <- sampled datasets from the two distributions
-# kernel_choice <- gaussian or laplace kernel
-# perm <- type of permutation test used
-# type <- type of test from MMDAgg paper - increasing, decreasing or centered
-# OUTPUT:
-# Binary output indication accept or reject
 
 f <- function(x,y, kernel_choice, perm, type) {
+  
+  ##############################################################################
+  # INPUT:
+  # x,y <- sampled datasets from the two distributions
+  # kernel_choice <- gaussian or laplace kernel
+  # perm <- type of permutation test used
+  # type <- type of test from MMDAgg paper - increasing, decreasing or centered
+  # OUTPUT:
+  # Binary output indication accept or reject
+  ##############################################################################
+  
   e <- new.env()
   options("reticulate.engine.environment" = e)
   
@@ -27,6 +31,9 @@ f <- function(x,y, kernel_choice, perm, type) {
   tmp_var_type <- paste(sample(letters, 30, replace = TRUE), collapse = "")
   assign(tmp_var_type, type, envir = e)
   
+  # calling python script containing functions for MMDAgg test. Adapted from
+  # https://github.com/antoninschrab/mmdagg-paper
+  
   reticulate::source_python("Test-Run.py")
   res <- reticulate::py_run_string(glue::glue("py_count = mmdagg(100,
                                               r.{tmp_var_x}, r.{tmp_var_y},
@@ -40,14 +47,17 @@ f <- function(x,y, kernel_choice, perm, type) {
 }
 
 # Functions for generating data under null and alternative
-# INPUT:
-# n <- number of samples
-# dim <- dimension of the data
-# p <- mixing probability
-# OUTPUT:
-# sampled datasets from the null and alternative distributions.
 
 X.gen <- function(n, dim, p){
+  
+  ##############################################################################
+  # INPUT:
+  # n <- number of samples
+  # dim <- dimension of the data
+  # p <- mixing probability
+  # OUTPUT:
+  # sampled datasets from the null distribution.
+  ##############################################################################
   
   # generating sample from gaussian denoted by mixture probability = 0
   if (p == 0){
@@ -86,6 +96,15 @@ X.gen <- function(n, dim, p){
 
 Y.gen <- function(n, dim, p){
   
+  ##############################################################################
+  # INPUT:
+  # n <- number of samples
+  # dim <- dimension of the data
+  # p <- mixing probability
+  # OUTPUT:
+  # sampled datasets from the alternative distribution.
+  ##############################################################################
+  
   # generating sample from gaussian denoted by mixture probability = 0
   if (p == 0){
     Y.samp <- MASS::mvrnorm(n, mu = mu1, Sigma = Sigma1)
@@ -119,6 +138,7 @@ Y.gen <- function(n, dim, p){
   return (Y.samp)
 }
 
+# Loading required libraries
 library(reticulate)
 
 # Number of samples
@@ -134,7 +154,7 @@ sigma.mult <- 1+seq(0,2,length.out = 11)/sqrt(n)
 # parameter for mean value for H1 distribution
 mu.param <- 0
 
-# choice of kernel vector
+# choice of kernel
 kernel.choice <- c("gaussian", "laplace")
 
 # parallelising
@@ -146,6 +166,7 @@ cl <- makeCluster(cores[1]-1)
 
 registerDoParallel(cl)
 
+# creating log file for keeping track of iterations
 writeLines(c(""), "log.txt")
 
 start <- Sys.time()
@@ -155,41 +176,45 @@ start <- Sys.time()
 power_out <- foreach(k=1:length(sigma.mult), .combine=cbind,
                      .export = ls(envir=globalenv())) %dopar% {
                        
-                       library(LaplacesDemon)
-                       library(Rfast)
+  # Loading required libraries
+  library(LaplacesDemon)
+  library(Rfast)
                        
-                       # Sigma0 matrix <- cov matrix under H0
-                       Sigma0 <- diag(1, nrow = d, ncol = d)
+  # cov matrix under H0
+  Sigma0 <- diag(1, nrow = d, ncol = d)
                        
-                       # cov matrix under H0
-                       Sigma1 <- sigma.mult[k]*Sigma0
-                       # mean vector under H0
-                       mu0 <- rep(0, d)
-                       # mean vector under H1
-                       mu1 <- rep(mu.param, d)
+  # cov matrix under H1
+  Sigma1 <- sigma.mult[k]*Sigma0
+  # mean vector under H0
+  mu0 <- rep(0, d)
+  # mean vector under H1
+  mu1 <- rep(mu.param, d)
                        
-                       count <- rep(0, n.iter)
+  count <- rep(0, n.iter)
+  
+  # writing in created log file for keeping track of progress
+  sink("log.txt", append=TRUE)
                        
-                       sink("log.txt", append=TRUE)
                        
-                       
-                       for (j in 1:n.iter) {
+  for (j in 1:n.iter) {
                          
-                         cat(paste("Starting iteration",k,"\t", j, "\n"))
+    cat(paste("Starting iteration",k,"\t", j, "\n"))
                          
-                         # generating samples from H0 and H1
-                         x <- X.gen(n, d, p)
-                         y <- Y.gen(n, d, p)
+    # generating samples from H0 and H1
+    x <- X.gen(n, d, p)
+    y <- Y.gen(n, d, p)
                          
-                         # Change kernel choice to kernel.choice[1] for Gaussian
-                         kernel_choice <- kernel.choice[2]
-                         
-                         perm <- "wild bootstrap"
-                         type <- "increasing"
-                         count[j] <- f(x,y, kernel_choice, perm, type)$py_count
-                       }
-                       mean(count)
-                     }
+    # Change kernel choice to kernel.choice[1] for Gaussian
+    kernel_choice <- kernel.choice[2]
+    
+    # type of permutation done for testing
+    perm <- "wild bootstrap"
+    # type of test from MMDAgg paper - increasing, decreasing or centered
+    type <- "increasing"
+    count[j] <- f(x,y, kernel_choice, perm, type)$py_count
+  }
+  mean(count)
+}
 stopCluster(cl)
 
 end <- Sys.time()
