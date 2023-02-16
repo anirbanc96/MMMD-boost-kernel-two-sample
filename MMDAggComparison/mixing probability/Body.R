@@ -215,7 +215,9 @@ power_out <- foreach(k=1:length(p), .combine=cbind,
     
     kernel_choice <- kernel.choice[2]
     
+    # type of permutation done for testing
     perm <- "wild bootstrap"
+    # type of test from MMDAgg paper - increasing, decreasing or centered
     type <- "increasing"
     count[j] <- f(x,y, kernel_choice, perm, type)$py_count
   }
