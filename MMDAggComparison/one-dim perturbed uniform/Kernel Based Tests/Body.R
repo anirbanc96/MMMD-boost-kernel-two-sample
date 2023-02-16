@@ -1,8 +1,6 @@
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+# Calling required functions from Functions.R
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 1
@@ -13,30 +11,30 @@ d <- 1
 # number of perturbations
 p.seq <- c(1,2,3,4,5,6)
 
+# parameters for data generation under perturbed uniform distribution
 theta_seed <- 1
 sob_smooth <- 1
 c_d <- 2.7
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # Choice of kernel for single and multiple kernel tests
 # poissble choices: 
-# single - "GAUSS" or "LAP" for gaussian or laplacian
+# single - "GAUSS" or "LAP" for gaussian or laplacian with median bandwidth
 # multiple - "MINMAX", "GEXP" or "MIXED" for gaussian kernel with min-max, 
 # exponential bandwidth choice, or mixture of gaussian and laplace kernel and
 # "LAP" for laplace kernel with exponential bandwidth.
 
 # First two coordinate for single, last three for multiple
 kernel.choice <- c("LAP","GAUSS", "LAP","GEXP", "MIXED")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#--------------------------------------------------------------------------#
-reticulate::source_python("Agg.py")
-# storing power values for each dimensions
 
+# calling python script with functions for generating samples from perturbed
+# uniform distribution.
+reticulate::source_python("Agg.py")
 
 # Libraries for parallelising
 library(foreach)
 library(doParallel)
+
+# Uncomment the following lines for using MPI
 #library(snow)
 
 #cores <- strtoi(Sys.getenv("NSLOTS"))-1
@@ -44,6 +42,7 @@ library(doParallel)
 
 #registerDoParallel(cl)
 
+# Comment the following lines if using MPI
 cores <- detectCores()
 cl <- makeCluster(cores[1]-1) #not to overload your computer
 
@@ -64,6 +63,7 @@ end-start
 
 stopCluster(cl)
 
+# Storing estimated power under each perturbation.
 single.power.d1 <- 2+6*(0:(n.rep-1))
 single.power.d2 <- 3+6*(0:(n.rep-1))
 multi.power.d1 <- 4+6*(0:(n.rep-1))
