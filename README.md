@@ -5,7 +5,7 @@ This github repository contains the codes for experiments presented in our paper
 # Requirements
 
 # Data
-We conduct two experiments in the paper. One uses a noise added version of the MNIST dataset, which is generated "insert folder/.R link here". The other experiment is conducted using a noisy version of MNIST datset introduced in "cite paper here". Here, in addition to additive Gaussian noise the contrast of the images is also reduced. Specifically, the contrast range is scaled down to half and an additive Gaussian noise is introduced
+We conduct two experiments in the paper. One uses a noise added version of the MNIST dataset, which is generated "insert folder/.R link here". The other experiment is conducted using a noisy version of MNIST datset introduced in [The n-MNIST handwritten digit dataset](https://csc.lsu.edu/~saikat/n-mnist/). Here, in addition to additive Gaussian noise the contrast of the images is also reduced. Specifically, the contrast range is scaled down to half and an additive Gaussian noise is introduced
 with signal-to-noise ratio of 12. This emulates background clutter along with significant change in lighting conditions.
 # Author
 
