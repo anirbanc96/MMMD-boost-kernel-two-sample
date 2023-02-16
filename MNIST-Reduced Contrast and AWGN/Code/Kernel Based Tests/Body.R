@@ -1,12 +1,14 @@
 ################################################################################
 ########## Driver code for estimating power under Noisy MNIST ##################
 ################################################################################
+
+# Calling required functions from Functions.R
 source("Functions.R")
-#------------------------------------------------------------------------------#
+
 # Library for reading .mat files
 library(rmatio)
-#------------------------------------------------------------------------------#
-# Noise added and reduced contrast MNIST data
+
+# Noise added and reduced contrast MNIST data. For source see README.md
 mnist.list <- read.mat("mnist-with-reduced-contrast-and-awgn.mat")
 
 # modifying the data for easy control
@@ -18,7 +20,7 @@ train.label <- rep(NA,dim(train.y.mat)[1])
 for(i in 1:dim(train.y.mat)[1]){
   train.label[i] <- which(train.y.mat[i,] == 1)-1
 }
-#------------------------------------------------------------------------------#
+
 # choosing sets corresponding to P and Q
 set.choice <- vector("list", 5)
 
@@ -27,9 +29,17 @@ set.choice[[2]] <- rbind(c(1,2,4,8,9), c(1,3,4,7,9))
 set.choice[[3]] <- rbind(c(0,1,2,4,8,9), c(0,1,3,4,7,9))
 set.choice[[4]] <- rbind(c(0,1,2,4,5,8,9), c(0,1,3,4,5,7,9))
 set.choice[[5]] <- rbind(c(0,1,2,4,5,6,8,9), c(0,1,3,4,5,6,7,9))
-#------------------------------------------------------------------------------#
+
+# Choice of Kernels
+# First two coordinates for single kernel tests, last three coordinates for 
+# multiple kernel tests.
+# Single kernel choices (median bandwidth): "LAP" - Laplace, "GAUSS" - Gaussian 
+# Mulitple kernel choices: "LAP" - Laplace, "GEXP" - Gaussian, "MIXED" - Both 
+#                          Laplace and Gaussian. All multiple kernel choices are
+#                          made with exponential bandwidth selection.
+
 kernel.choice <- c("LAP","GAUSS", "LAP", "GEXP","MIXED")
-#------------------------------------------------------------------------------#
+
 # Running Experiments
 start <- Sys.time()
 n.rep <- 30
@@ -38,6 +48,8 @@ resamp <- 150
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
+  # n.iter <- number of iterations done for estimating power and level alpha
+  #           threshold.
   out.d.iter <- power.d(resamp, set.choice,
                         kernel.choice = kernel.choice, n.iter = 500)
   out.d <- c(out.d, out.d.iter)
@@ -46,7 +58,7 @@ for (iter in 1:n.rep){
 out.d <- as.matrix(as.data.frame(out.d))
 end <- Sys.time()
 end-start
-#------------------------------------------------------------------------------#
+
 # Storing Results
 single.power.d1 <- 2 + 6*(0:(n.rep-1))
 single.power.d2 <- 3 + 6*(0:(n.rep-1))
