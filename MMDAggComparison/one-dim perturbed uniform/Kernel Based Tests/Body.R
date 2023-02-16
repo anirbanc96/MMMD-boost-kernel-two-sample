@@ -22,9 +22,10 @@ c_d <- 2.7
 # poissble choices: 
 # single - "GAUSS" or "LAP" for gaussian or laplacian
 # multiple - "MINMAX", "GEXP" or "MIXED" for gaussian kernel with min-max, 
-# exponential bandwidth choice, or mixture of gaussian and laplace kernel.
+# exponential bandwidth choice, or mixture of gaussian and laplace kernel and
+# "LAP" for laplace kernel with exponential bandwidth.
 
-# 1st coordinate for single, 2nd for multiple
+# First two coordinate for single, last three for multiple
 kernel.choice <- c("LAP","GAUSS", "LAP","GEXP", "MIXED")
 #------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------#
@@ -92,7 +93,3 @@ write.csv(power.single.mat2, file = "SinglePower-GAUSS.csv")
 write.csv(power.multi.mat1, file = "MultiPower-LAP.csv")
 write.csv(power.multi.mat2, file = "MultiPower-GEXP.csv")
 write.csv(power.multi.mat3, file = "MultiPower-MIXED.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-# Plotting the results
-source("PlotsCompare.R")
