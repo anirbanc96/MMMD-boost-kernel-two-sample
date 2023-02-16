@@ -27,6 +27,9 @@ X.gen <- function(n,dim){
 # n <- sample size
 # dum <- dimension of samples
 # num_perturb <- number of perturbations
+# sob_smooth <- the sobolev smoothness parameter
+# c_d <- the multiplier for perturbed distribution
+# theta_seed <- seed for sampling theta
 
 Y.gen <- function(n, dim, num_perturb, sob_smooth = 1, c_d = 2.7, 
                   theta_seed = 100){
@@ -42,7 +45,7 @@ Y.gen <- function(n, dim, num_perturb, sob_smooth = 1, c_d = 2.7,
 #------------------------------------------------------------------------------#
 # Function for computing MMD^2 between two data vectors
 # INPUTS:
-# k <- given kernel
+# k <- given kernel (kernlab object)
 # X,Y <- given dataset
 # OUTPUTS:
 # MMD.out <- value of MMD_{u}^{2} for given kernel k
@@ -67,7 +70,7 @@ compute.MMD <- function(X, Y, k){
 # Function for computing vector of MMD_{u}^{2} values for a given finite number
 # of kernels
 # INPUT:
-# kernel.vec <- a list of given kernels
+# kernel.vec <- a list of given kernels (kernlab object)
 # X,Y <- given dataset
 # OUTPUT:
 # MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
@@ -90,7 +93,7 @@ compute.MMD.vec <- function(X, Y, kernel.vec){
 # INPUTS
 # n <- sample size
 # x <- data
-# k.vec <- list of kernels
+# k.vec <- list of kernels (kernlab objects)
 # OUTPUT
 # The estimated covariance matrix
 
@@ -203,7 +206,7 @@ single.H0.cutoff <- function(n, x, k, n.iter = 1000){
 # power of test using single kernel
 
 Single.MMD <- function(n, d, p, sob_smooth = 1, c_d = 2.7, 
-                       theta_seed = 1, kernel.choice = "GAUSS", n.iter = 1000){
+                       theta_seed = 1, kernel.choice, n.iter = 1000){
   
   X.list <- lapply(1:n.iter,function(x){X.gen(n,d)})
   Y.list <- lapply(1:n.iter,function(x){Y.gen(n,d,p, sob_smooth, c_d, 
@@ -368,7 +371,7 @@ multi.H0.cutoff <- function(n, x, k.vec, n.iter = 1000){
 # Function for providing list of kernels according to user choice
 # INPUT: 
 # X,Y <- observed data (used for finding bandwidth)
-# kernel.choice <- choice of kernel (between rbf laplace or mixed)
+# kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED", "LAP")
 # OUTPUT:
 # A list containing kernels using a pre-specified bandwidth selection method
 k.choice <- function(X,Y, kernel.choice){
@@ -452,7 +455,7 @@ k.choice <- function(X,Y, kernel.choice){
 # OUTPUT
 # power of test using single kernel
 Multi.MMD <- function(n, d, p, sob_smooth = 1, c_d = 2.7, 
-                      theta_seed = 1, kernel.choice = "GEXP",
+                      theta_seed = 1, kernel.choice,
                       n.iter = 1000){
   
   X.list <- lapply(1:n.iter,function(x){X.gen(n,d)})
