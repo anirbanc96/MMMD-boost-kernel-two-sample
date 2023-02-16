@@ -23,3 +23,5 @@ parameter for generating cov matrix under H1 (sigma.mult) <- 1.3, Sigma1 Matrix 
 mean vector under H0 <- 0
 parameter for generating mean vector under H1 (mu.param) <- 0, mean vector under H1 <- mu.param repeated 
 iterations for threshold and power (n.iter) <- 500
+
+Note: For Laplace mixture uncomment lines in X.gen and Y.gen in Functions.R to generate from Laplace distribution.
