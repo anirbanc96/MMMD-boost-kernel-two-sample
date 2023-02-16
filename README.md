@@ -5,7 +5,7 @@ This github repository contains the codes for experiments presented in our paper
 # Requirements
 
 # Data
-
+We conduct two experiments in the paper. One uses a noise added version of the MNIST dataset, which is generated "insert folder/.R link here"
 # Author
 
 Anirban Chatterjee
