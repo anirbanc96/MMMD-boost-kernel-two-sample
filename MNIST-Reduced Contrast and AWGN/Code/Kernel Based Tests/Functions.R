@@ -2,18 +2,17 @@
 ########################### Common Functions ###################################
 ################################################################################
 
-################################################################################
 ################ Function for MMD_{u}^{2}(\bm{X},\bm{Y}, k) ####################
-
-# INPUTS:
-# X,Y <- given datasets
-# k <- given kernel (kernlab objects)
-
-# OUTPUTS:
-# MMD.out <- value of MMD_{u}^{2} for given kernel k
 
 compute.MMD <- function(X, Y, k){
   
+  ##############################################################################
+  # INPUTS:
+  # X,Y <- given datasets
+  # k <- given kernel (kernlab objects)
+  # OUTPUT:
+  # MMD.out <- value of MMD_{u}^{2} for given kernel k
+  ##############################################################################
   # Compute K(Xi,Xj), K(Yi,Yj) and K(Xi,Yj)
   
   k.X <- kernlab::kernelMatrix(k, X)
@@ -28,17 +27,17 @@ compute.MMD <- function(X, Y, k){
 }
 ################################################################################
 
-################################################################################
 ########## Function for MMD_{u}^{2}(\bm{X},\bm{Y}; k_{1},..,k_{r}) #############
 
-# INPUT:
-# X,Y <- given dataset
-# kernel.vec <- a list of given kernels (kernlab objects)
-
-# OUTPUT:
-# MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
-
 compute.MMD.vec <- function(X, Y, kernel.vec){
+  
+  ##############################################################################
+  # INPUT:
+  # X,Y <- given dataset
+  # kernel.vec <- a list of given kernels (kernlab objects)
+  # OUTPUT:
+  # MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
+  ###############################################################################
   
   MMD.vec <- rep(NA, length(kernel.vec))
   
@@ -55,18 +54,18 @@ compute.MMD.vec <- function(X, Y, kernel.vec){
 }
 ################################################################################
 
-################################################################################
 ################## Estimated Covariance Matrix under H0 ########################
 
-# INPUTS
-# n <- sample size
-# x <- data
-# k.vec <- list of kernels (kernlab objects)
-
-# OUTPUT
-# The estimated covariance matrix
-
 est.cov <- function(n,x,k.vec){
+  
+  ##############################################################################
+  # INPUTS
+  # n <- sample size
+  # x <- data
+  # k.vec <- list of kernels (kernlab objects)
+  # OUTPUT
+  # The estimated covariance matrix
+  ##############################################################################
   
   # required for using trace function
   require(psych)
@@ -98,16 +97,16 @@ est.cov <- function(n,x,k.vec){
 
 ################################################################################
 
-################################################################################
 ############################ Median Bandwidth ##################################
 
-# INPUTS:
-# X,Y <- given dataset
-
-# OUTPUTS:
-# sigma.hat <- squared median bandwidth
-
 med.bandwidth <- function(X, Y){
+  
+  ##############################################################################
+  # INPUTS:
+  # X,Y <- given dataset
+  # OUTPUTS:
+  # sigma.hat <- squared median bandwidth
+  ##############################################################################
   
   # making X and Y matrices for generality
   X <- as.matrix(X); Y <- as.matrix(Y)
@@ -127,23 +126,24 @@ med.bandwidth <- function(X, Y){
 }
 
 ################################################################################
-################################################################################
 
 
 ################################################################################
 ########################## Single Kernel Functions #############################
 ################################################################################
 
-# INPUTS: 
-# m <- no. of sample from H0 (here the code is done assuming balanced condition)
-# x <- the data X
-# k <- the kernel to use (kernlab objects)
-# n.iter <- number of iterations done to estimate H0 cut-off
-
-# OUTPUT: 
-# The estimated cutoff under H0.
-
 single.H0.cutoff <- function(m, x, k, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUTS: 
+  # m <- no. of sample from H0 
+  #      (here the code is done assuming balanced condition)
+  # x <- the data X
+  # k <- the kernel to use (kernlab objects)
+  # n.iter <- number of iterations done to estimate H0 cut-off
+  # OUTPUT: 
+  # The estimated cutoff under H0.
+  ##############################################################################
   
   # required for using trace function
   require(psych)
@@ -177,16 +177,17 @@ single.H0.cutoff <- function(m, x, k, n.iter = 1000){
 ################################################################################
 ############## Function for simulating test using single kernel ################
 
-# INPUTS
-# m, n <- number of samples in the H0 and H1 datasets;
-# resamp.size <- number of resamples considered
-# kernel.choice <- choice of the kernel considered ("GAUSS", "LAP")
-# n.iter <- number of iterations to be done for estimating power
-
-# Output
-# proportion of iterations rejected
-
 Single.MMD <- function(m,n,resamp.size, kernel.choice, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUTS
+  # m, n <- number of samples in the H0 and H1 datasets;
+  # resamp.size <- number of resamples considered
+  # kernel.choice <- choice of the kernel considered ("GAUSS", "LAP")
+  # n.iter <- number of iterations to be done for estimating power
+  # OUTPUT:
+  # proportion of iterations rejected
+  ##############################################################################
   
   count <- 0
   
@@ -229,22 +230,21 @@ Single.MMD <- function(m,n,resamp.size, kernel.choice, n.iter = 1000){
 }
 
 ################################################################################
-################################################################################
 
 ################################################################################
 ########################## Multiple Kernel Functions ###########################
 ################################################################################
 
-################################################################################
 ###### Function for choosing range of bandwidth using min-max heurestic ########
 
-# INPUTS
-# X,Y <- given dataset
-
-# OUTPUT
-# upper and lower bound of range of bandwidth using min-max heurestic
-
 min.max.band <- function(X, Y){
+  
+  ##############################################################################
+  # INPUTS
+  # X,Y <- given dataset
+  # OUTPUT
+  # upper and lower bound of range of bandwidth using min-max heurestic
+  ##############################################################################
   
   # making X and Y matrices for generality
   X <- as.matrix(X); Y <- as.matrix(Y)
@@ -261,17 +261,18 @@ min.max.band <- function(X, Y){
   # is standard, hence this formulation.
 }
 
-################################################################################
 ############## Function for choosing range based on 2^l rule ###################
 
-# INPUTS
-# X,Y <- given dataset
-# l0, l1 <- upper and lower bound of integer range
-
-# OUTPUT
-# a vector of bandwidths
-
 expo.band <- function(X,Y, l0, l1){
+  
+  ##############################################################################
+  # INPUTS:
+  # X,Y <- given dataset
+  # l0, l1 <- upper and lower bound of integer range
+  # OUTPUT:
+  # a vector of bandwidths
+  ##############################################################################
+  
   # Computing median bandwidth
   med.band <- med.bandwidth(X,Y)
   
@@ -290,14 +291,15 @@ expo.band <- function(X,Y, l0, l1){
 # Function for computing function of MMD_{u}^{2} vector for a list of kernels ##
 ################################################################################
 
-# INPUTS
-# x <- a vector of values
-# param <- a matrix of appropriate dimensions
-
-# OUTPUT
-# value of the function applied on the vector x
-
 multi.func <- function(x, param){
+  
+  ##############################################################################
+  # INPUTS
+  # x <- a vector of values
+  # param <- a matrix of appropriate dimensions
+  # OUTPUT
+  # value of the function applied on the vector x
+  ##############################################################################
   
   out <- t(x)%*%param%*%x
   
@@ -306,13 +308,6 @@ multi.func <- function(x, param){
 
 ################################################################################
 ############ Function for finding H0 cutoff for multiple Kernel test ###########
-# INPUT:
-# n <- number of samples from distribution of X.
-# x <- the oberseved data coming from p
-# invcov <- the estimated inverse covariance matrix
-# k.vec <- list of kernels to use (kernlab objects)
-# OUTPUT:
-# The upper alpha cutoff under null.
 
 ####### Helper function for computing value of approximating statistic given a #
 # kernel and the independently generated gaussian variables ####################
@@ -326,6 +321,16 @@ multi.k.approx.stat <- function(k.mat, u.mat){
 }
 
 multi.H0.cutoff <- function(n, x, k.vec, invcov, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUT:
+  # n <- number of samples from distribution of X.
+  # x <- the oberseved data coming from p
+  # invcov <- the estimated inverse covariance matrix
+  # k.vec <- list of kernels to use (kernlab objects)
+  # OUTPUT:
+  # The upper alpha cutoff under null.
+  ##############################################################################
   
   # required for using trace function
   require(psych)
@@ -368,13 +373,17 @@ multi.H0.cutoff <- function(n, x, k.vec, invcov, n.iter = 1000){
 
 ################################################################################
 ###### Function for providing list of kernels according to user choice #########
-# INPUT: 
-# X,Y <- observed data (used for finding bandwidth)
-# kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED" or "LAP")
-# OUTPUT:
-# A list containing kernels using a pre-specified bandwidth selection method
+
 
 k.choice <- function(X,Y, kernel.choice){
+  
+  ##############################################################################
+  # INPUT: 
+  # X,Y <- observed data (used for finding bandwidth)
+  # kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED" or "LAP")
+  # OUTPUT:
+  # A list containing kernels using a pre-specified bandwidth selection method
+  ##############################################################################
   
   # List of kernels using min-max bandwidth
   if (kernel.choice == "MINMAX"){
@@ -439,18 +448,18 @@ k.choice <- function(X,Y, kernel.choice){
 ################################################################################
 ############ Function for simulating test using multiple kernel ################
 
-# INPUTS
-# m, n <- number of samples in the H0 and H1 datasets;
-# resamp.size <- number of resamples considered
-# kernel.choice <- choice of the kernel considered 
-#                  ("MINMAX", "GEXP", "MIXED" or "LAP")
-# n.iter <- number of iterations to be done for estimating power
-
-# Output
-# proportion of iterations rejected
-
-Multi.MMD <- function(m,n, resamp.size, kernel.choice,
-                      n.iter = 1000){
+Multi.MMD <- function(m,n, resamp.size, kernel.choice, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUTS
+  # m, n <- number of samples in the H0 and H1 datasets;
+  # resamp.size <- number of resamples considered
+  # kernel.choice <- choice of the kernel considered 
+  #                  ("MINMAX", "GEXP", "MIXED" or "LAP")
+  # n.iter <- number of iterations to be done for estimating power
+  # OUTPUT
+  # proportion of iterations rejected
+  ##############################################################################
   
   count <- 0
   
@@ -487,49 +496,51 @@ Multi.MMD <- function(m,n, resamp.size, kernel.choice,
 }
 
 ################################################################################
-################################################################################
 
 ################################################################################
 ########################## Power comparison function ###########################
 ################################################################################
 
-# Function for comparing power over dimensions
-# INPUTS:
-# resamp <- number of resamples to be done
-# set.choice <- vector of sets chosen
-# kernel.choice <- choice of kernels under single (first two coordinates) 
-# and multi kernel setup (last three coordinates)
-# n.iter <- number of iterations to be done for estimating H0 threshold and 
-# estimate power.
-
-# OUTPUT:
-# A data frame having powers of single and multiple test under various
-# noise variance values
 power.d <- function(resamp, set.choice,
                     kernel.choice, n.iter = 500){
-  #----------------------------------------------------------------------------#
+  
+  ##############################################################################
+  # Function for comparing power over dimensions
+  # INPUTS:
+  # resamp <- number of resamples to be done
+  # set.choice <- vector of sets chosen
+  # kernel.choice <- choice of kernels under single (first two coordinates) 
+  #                  and multi kernel setup (last three coordinates)
+  # n.iter <- number of iterations to be done for estimating H0 threshold and 
+  #           estimate power.
+  # OUTPUT:
+  # A data frame having powers of single and multiple test under various
+  # noise variance values
+  ##############################################################################
+  
   # Libraries for parallelising
   library(foreach)
   library(doParallel)
-  #----------------------------------------------------------------------------#
+  
   cores <- detectCores()
   cl <- makeCluster(cores[1]-1) #not to overload your computer
   
   registerDoParallel(cl)
-  #----------------------------------------------------------------------------#
+  
+  # Creating log file for keeping track of iterations
   writeLines(c(""), "log.txt")
-  #----------------------------------------------------------------------------#
+  # Running loop over set.choices
   out.compare <- foreach(k=1:length(set.choice), .combine=rbind,
                          .export = ls(envir=globalenv())) %dopar% {
     
-    #--------------------------------------------------------------------------#
+    # Loading required libraries
     library(LaplacesDemon)
     library(Rfast)
     library(SpatialPack)
-    #--------------------------------------------------------------------------#
+    
     # choice of set for H0 and H1                       
     set.x <- set.choice[[k]][1,]; set.y <- set.choice[[k]][2,]
-    #--------------------------------------------------------------------------#
+    
     # getting indices of above set choices
     index.y <- rep(F,length(train.label)); index.x <- rep(F,length(train.label))
     for(i in 1:length(train.label)){
@@ -540,16 +551,16 @@ power.d <- function(resamp, set.choice,
         index.x[i] <- T
       }
     }
-    #--------------------------------------------------------------------------#
+    
     # data under H0
     data.X <- train.x[index.x,]
     # data under H1
     data.Y <- train.x[index.y,]
-    #--------------------------------------------------------------------------#
+    
     # size of data under H0 and H1
     m.x <- dim(data.X)[1]
     n.y <- dim(data.Y)[1]
-    #--------------------------------------------------------------------------#
+    
     # indices under every resamples which is done "resamp" many times
     resamp.x <- matrix(NA, nrow = n.iter, ncol = resamp)
     resamp.y <- matrix(NA, nrow = n.iter, ncol = resamp)
@@ -557,21 +568,17 @@ power.d <- function(resamp, set.choice,
     for(i in 1:n.iter){resamp.x[i,] <- sample(1:m.x, resamp, rep = T)}
     for(i in 1:n.iter){resamp.y[i,] <- sample(1:n.y, resamp, rep = T)}
     
-    #--------------------------------------------------------------------------#
-    # Creating a log file to keep track of progress
+    # Writing into log file to keep track of progress
     sink("log.txt", append=TRUE)
     cat(paste("Starting iteration",k,"\n"))
-    #--------------------------------------------------------------------------#
     
-    #--------------------------------------------------------------------------#
     # Estimating power under single kernel test
     out.row.col1 <- Single.MMD(m.x,n.y,resamp,kernel.choice[1], n.iter)
     cat("Single Kernel-1 in iteration",c(out.row.col1,k),"\n")
     
     out.row.col2 <- Single.MMD(m.x,n.y,resamp,kernel.choice[2], n.iter)
     cat("Single Kernel-2 in iteration",c(out.row.col2,k),"\n")
-    #--------------------------------------------------------------------------#
-    #--------------------------------------------------------------------------#
+    
     # Estimating power under multiple kernel test
     out.row.col3 <- Multi.MMD(m.x,n.y,resamp,kernel.choice[3], n.iter)
     cat("Multiple Kernel-1 in iteration",c(out.row.col3,k),"\n")
@@ -581,11 +588,11 @@ power.d <- function(resamp, set.choice,
     
     out.row.col5 <- Multi.MMD(m.x,n.y,resamp,kernel.choice[5], n.iter)
     cat("Multiple Kernel-3 in iteration",c(out.row.col5,k),"\n")
-    #--------------------------------------------------------------------------#
+    
     # Concatenating all the outputs
     out.row <- c(k,out.row.col1, out.row.col2, out.row.col3, 
                  out.row.col4, out.row.col5)
-    #--------------------------------------------------------------------------#
+    
   }
   stopCluster(cl)
   
