@@ -1,9 +1,10 @@
 ################################################################################
 ################# Driver Code for Power over Dimensions ########################
 ################################################################################
+
+# Calling required functions from Functions.R
 source("Functions.R")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 start <- Sys.time()
 # Number of repetitions
 n.rep <- 1
@@ -14,15 +15,12 @@ d <- 1
 # number of perturbations
 p.seq <- c(1,2,3,4,5,6)
 
+# parameters for generating samples from perturbed uniform distribution
 theta_seed <- 1
 sob_smooth <- 1
 c_d <- 2.7
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-# storing power values for each dimensions
 
-
-
+# running experiments
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
@@ -45,6 +43,4 @@ for (k in 1:length(p.seq)){
 
 power.FR.mat1 <- cbind(p.seq,power.FR.mat1)
 
-write.csv(power.FR.mat1, file = "Power-FR-56.csv")
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+write.csv(power.FR.mat1, file = "Power-FR.csv")
