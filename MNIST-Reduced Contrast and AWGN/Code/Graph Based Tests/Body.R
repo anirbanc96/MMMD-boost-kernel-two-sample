@@ -1,9 +1,13 @@
+# Library for reading .mat files
 library(rmatio)
+
+# Calling required functions from Functions.R
 source("Functions.R")
-# reading the reduced contrast and awgn MNIST data
+
+# reading the reduced contrast and awgn MNIST data. For source see README.md
 mnist.list <- read.mat("mnist-with-reduced-contrast-and-awgn.mat")
 
-# scaling the handwritten image values to [0,1]
+# modifying the data for easy control
 train.x <- mnist.list$train_x/255
 train.y.mat <- mnist.list$train_y
 
@@ -13,7 +17,7 @@ for(i in 1:dim(train.y.mat)[1]){
   train.label[i] <- which(train.y.mat[i,] == 1)-1
 }
 
-# making the different set choices
+# choosing sets corresponding to P and Q
 set.choice <- vector("list", 5)
 
 set.choice[[1]] <- rbind(c(2,4,8,9), c(3,4,7,9))
