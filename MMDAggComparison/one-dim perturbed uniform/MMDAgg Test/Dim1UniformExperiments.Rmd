@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = '~/Dropbox (Penn)/Kernel-Two-Sample/Simulations/Perturbed Uniform - MMDAgg/MMDAgg-Paper')
+knitr::opts_knit$set(root.dir = '~/Documents/GitHub/boost-kernel-two-sample/MMDAggComparison/one-dim perturbed uniform/MMDAgg Test/MMDAgg-Paper')
 ```
 
 ```{r}
