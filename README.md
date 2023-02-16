@@ -8,6 +8,6 @@ This github repository contains the codes for experiments presented in our paper
 
 # Author
 
-Anirban Chatterjee\\n
+Anirban Chatterjee
 Department of Statistics and Data Science
 University of Pennsylvania, USA
