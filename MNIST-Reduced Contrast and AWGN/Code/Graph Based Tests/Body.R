@@ -1,5 +1,5 @@
 library(rmatio)
-
+source("Functions.R")
 # reading the reduced contrast and awgn MNIST data
 mnist.list <- read.mat("mnist-with-reduced-contrast-and-awgn.mat")
 
