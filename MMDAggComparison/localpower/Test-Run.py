@@ -1,3 +1,8 @@
+"""
+The following code is adapted from 
+https://github.com/antoninschrab/mmdagg-paper
+"""
+
 import numpy as np
 
 def create_weights(N, weights_type):
