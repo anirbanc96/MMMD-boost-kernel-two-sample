@@ -1,8 +1,12 @@
 # Code for Boosting the power of kernel two sample test
 
-This github repository contains the codes for experiments presented in our paper "Include Paper Here". We provide codes for generating Figures 1-9 in our paper. The images can be found as follows:
+This github repository contains the codes for experiments presented in our paper "Include Paper Here". We provide codes for generating Figures $1-9$ in our paper. The images can be found as follows:
 
 * Figure $1$ in [Part 1(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/TYPE-I%20ERROR/Results/GaussianScaleTypeISampleSize.pdf) and [Part 1(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/POWER/Results/GaussianScalePowerSampleSize.pdf)
+* Figure $2$ in [Part 2(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Power%20over%20Dimensions/Results/LocationScaleNormal/LocationScaleNormal.pdf) and [Part 2(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Power%20over%20Dimensions/Results/Scalet10/Scalet10.pdf)
+* Figure $3$ in [Part 3(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Power%20over%20Dimensions/Results/ScaleNormalt10/ScaleNormalt10.pdf) and [Part 3(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Power%20over%20Dimensions/Results/LaplaceNormal/LaplaceNormal.pdf)
+* Figure $4$ in [Part 4(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Mixture%20Alternatives/d%20%3D%2030/ScaleNormaltMixing30.pdf) and [Part 4(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Mixture%20Alternatives/d%20%3D%20150/ScaleNormaltMixing150.pdf)
+* Figure $5$ in [Part 5(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Local%20Alternatives/Results/ScaleLocalNormal.pdf) and [Part 5(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/High%20Dimensional%20Alternatives/Results/ScaleNormalDimension.pdf)
 
 # Requirements
 
