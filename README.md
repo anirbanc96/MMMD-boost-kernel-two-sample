@@ -17,6 +17,8 @@ Codes for Figure $2$ and Figure $3$ is given in [Code for Dependence over Dimens
 The Graph and Kernel based experiments can be implemented by calling `Body.R` in appropriate sub-folders with the appropriate parameters. 
 
 # Requirements
+* `python 3.9`
+* `R 4.2.2`
 
 # Data
 Aside from various simulation setups we conduct two experiments using real data in the paper. One uses a noise added version of the MNIST dataset, which is generated while implementing the [Kernel Based Tests](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/tree/main/MNIST-Additive%20Noise/Code/Kernel%20Based%20Tests) as well as the [Graph Based Tests](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/tree/main/MNIST-Additive%20Noise/Code/Graph%20Based%20Tests).
