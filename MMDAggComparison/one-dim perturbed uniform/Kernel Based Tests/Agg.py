@@ -1,3 +1,8 @@
+"""
+The following code is adapted from
+https://github.com/antoninschrab/mmdagg-paper
+"""
+
 import numpy as np
 import itertools
 
