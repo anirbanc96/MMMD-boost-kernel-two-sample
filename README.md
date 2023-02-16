@@ -2,7 +2,7 @@
 
 This github repository contains the codes for experiments presented in our paper "Include Paper Here". We provide codes for generating Figures 1-9 in our paper. The images can be found as follows:
 
-* Figure $1$ in [Part 1(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/TYPE-I%20ERROR/Results/GaussianScaleTypeISampleSize.pdf) and [Part 1(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/POWER/Results/GaussianScalePowerSampleSize.pdf)
+* Figure $1$ in [Part $1(a)$](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/TYPE-I%20ERROR/Results/GaussianScaleTypeISampleSize.pdf) and [Part 1(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/POWER/Results/GaussianScalePowerSampleSize.pdf)
 
 # Requirements
 
