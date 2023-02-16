@@ -15,7 +15,6 @@ f <- function(x,y, kernel_choice, perm, type) {
   e <- new.env()
   options("reticulate.engine.environment" = e)
   
-  # create a new variable with a random name
   tmp_var_x <- paste(sample(letters, 30, replace = TRUE), collapse = "")
   assign(tmp_var_x, x, envir = e)
   
