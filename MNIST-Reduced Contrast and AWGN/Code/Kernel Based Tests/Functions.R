@@ -515,7 +515,7 @@ power.d <- function(resamp, set.choice,
   #           estimate power.
   # OUTPUT:
   # A data frame having powers of single and multiple test under various
-  # noise variance values
+  # set choices
   ##############################################################################
   
   # Libraries for parallelising
