@@ -1,16 +1,19 @@
-#------------------------------------------------------------------------------#
-#-------------------------- Common Functions ----------------------------------#
-#------------------------------------------------------------------------------#
+################################################################################
+########################### Common Functions ###################################
+################################################################################
 
-# INPUT: 
-# n <- no. of samples
-# dim <- dimension of the data
-# OUTPUT:
-# n many samples from the uniform distribution
-
-# Function for generating samples under null
+# Function for generating samples under null = uniform distribution
 
 X.gen <- function(n,dim){
+  
+  ##############################################################################
+  # INPUT: 
+  # n <- no. of samples
+  # dim <- dimension of the data
+  # OUTPUT:
+  # n many samples from the uniform distribution
+  ##############################################################################
+  
   if (dim == 1){
     X.samp <- as.matrix(replicate(n, runif(dim,0,1)))
   }
@@ -20,19 +23,23 @@ X.gen <- function(n,dim){
   return (X.samp)
 }
 
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 # Function for generating samples from perturbed uniform distribution
-# INPUT:
-# n <- sample size
-# dum <- dimension of samples
-# num_perturb <- number of perturbations
-# sob_smooth <- the sobolev smoothness parameter
-# c_d <- the multiplier for perturbed distribution
-# theta_seed <- seed for sampling theta
 
 Y.gen <- function(n, dim, num_perturb, sob_smooth = 1, c_d = 2.7, 
                   theta_seed = 100){
+  
+  ##############################################################################
+  # INPUT:
+  # n <- sample size
+  # dim <- dimension of samples
+  # num_perturb <- number of perturbations
+  # sob_smooth <- the sobolev smoothness parameter
+  # c_d <- the multiplier for perturbed distribution
+  # theta_seed <- seed for sampling theta
+  # OUTPUT:
+  # n many samples from perturbed uniform distribution
+  ##############################################################################
+  
   theta_seed <- sample(1:(1000*n), 1)
   samp_seed <- sample(1:(1000*n), 1)
   Y.samp <- f_theta_sampler(theta_seed, samp_seed, n, num_perturb, sob_smooth,
@@ -40,17 +47,18 @@ Y.gen <- function(n, dim, num_perturb, sob_smooth = 1, c_d = 2.7,
   
   return (Y.samp)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
 # Function for computing MMD^2 between two data vectors
-# INPUTS:
-# k <- given kernel (kernlab object)
-# X,Y <- given dataset
-# OUTPUTS:
-# MMD.out <- value of MMD_{u}^{2} for given kernel k
 
 compute.MMD <- function(X, Y, k){
+  
+  ##############################################################################
+  # INPUTS:
+  # k <- given kernel (kernlab object)
+  # X,Y <- given dataset
+  # OUTPUTS:
+  # MMD.out <- value of MMD_{u}^{2} for given kernel k
+  ##############################################################################
   
   # Compute K(Xi,Xj), K(Yi,Yj) and K(Xi,Yj)
   k.X <- kernlab::kernelMatrix(k, X)
@@ -63,19 +71,22 @@ compute.MMD <- function(X, Y, k){
   
   return (MMD.out)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
+
+################################################################################
 
 # Function for computing vector of MMD_{u}^{2} values for a given finite number
 # of kernels
-# INPUT:
-# kernel.vec <- a list of given kernels (kernlab object)
-# X,Y <- given dataset
-# OUTPUT:
-# MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
 
 compute.MMD.vec <- function(X, Y, kernel.vec){
+  
+  ##############################################################################
+  # INPUT:
+  # kernel.vec <- a list of given kernels (kernlab object)
+  # X,Y <- given dataset
+  # OUTPUT:
+  # MMD.vec <- vector of MMD_{u}^{2} for list of given kernels
+  ##############################################################################
+  
   MMD.vec <- rep(NA, length(kernel.vec))
   # looping over each kernel
   for (i in 1:length(kernel.vec)){
@@ -85,19 +96,20 @@ compute.MMD.vec <- function(X, Y, kernel.vec){
   }
   return (MMD.vec)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
 # Function for estimating the asymptotic covariance matrix under H0 using only X
-# INPUTS
-# n <- sample size
-# x <- data
-# k.vec <- list of kernels (kernlab objects)
-# OUTPUT
-# The estimated covariance matrix
 
 est.cov <- function(n,x,k.vec){
+  
+  ##############################################################################
+  # INPUTS
+  # n <- sample size
+  # x <- data
+  # k.vec <- list of kernels (kernlab objects)
+  # OUTPUT
+  # The estimated covariance matrix
+  ##############################################################################
+  
   # required for using trace function
   require(psych)
   # length of the list of kernels
@@ -124,17 +136,17 @@ est.cov <- function(n,x,k.vec){
   return (cov.mat.est + (10^-5)*min(diag(cov.mat.est))*diag(1, k.len,k.len))
 }
 
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
 # Function for choosing median bandwidth given a data
-# INPUTS:
-# X,Y <- given dataset
-# OUTPUTS:
-# sigma.hat <- bandwidth (for rbf/laplace in kernlab) using median bandwidth
 
 med.bandwidth <- function(X, Y){
+  
+  ##############################################################################
+  # INPUTS:
+  # X,Y <- given dataset
+  # OUTPUTS:
+  # sigma.hat <- bandwidth (for rbf/laplace in kernlab) using median bandwidth
+  ##############################################################################
   
   # making X and Y matrices for generality
   X <- as.matrix(X); Y <- as.matrix(Y)
@@ -154,25 +166,26 @@ med.bandwidth <- function(X, Y){
   return (sigma.hat)
 }
 
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
-#------------------------------------------------------------------------------#
-#------------------------- Single Kernel Functions ----------------------------#
-#------------------------------------------------------------------------------#
+################################################################################
+########################## Single Kernel Functions #############################
+################################################################################
 
 # Function for returning the cut-off for test using single kernel. Here we use a
-# formulation slightly different from gretton, instead of using the eigenvalues,
+# formulation slightly different from Gretton (2014), instead of using the eigenvalues,
 # we equivalently use the quadratic form.
-# INPUTS: 
-# n <- no. of sample of X
-# x <- the data X
-# k <- the kernel to use
-# OUTPUT: 
-# The estimated cutoff under H0.
 
 single.H0.cutoff <- function(n, x, k, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUTS: 
+  # n <- no. of sample of X
+  # x <- the data X
+  # k <- the kernel to use
+  # OUTPUT: 
+  # The estimated cutoff under H0.
+  ##############################################################################
+  
   # required for using trace function
   require(psych)
   # Centering matrix
@@ -189,24 +202,24 @@ single.H0.cutoff <- function(n, x, k, n.iter = 1000){
   H0.thresh <- quantile(test.stat, probs = 0.95)
   return (H0.thresh)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
 # Function for simulating test using single kernel
-# INPUTS
-# n <- number of original samples;
-# d <- dimension of the Gaussian data
-# p <- number of perturbations
-# sob_smooth <- sobolev smoothness parameter
-# c_d <- multiplier for perturbed density
-# theta_seed <- seed for generating theta
-# kernel.choice <- choice of kernel used
-# Output
-# power of test using single kernel
 
 Single.MMD <- function(n, d, p, sob_smooth = 1, c_d = 2.7, 
                        theta_seed = 1, kernel.choice, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUTS
+  # n <- number of original samples;
+  # d <- dimension of the Gaussian data
+  # p <- number of perturbations
+  # sob_smooth <- sobolev smoothness parameter
+  # c_d <- multiplier for perturbed density
+  # theta_seed <- seed for generating theta
+  # kernel.choice <- choice of kernel used
+  # Output
+  # power of test using single kernel
+  ##############################################################################
   
   X.list <- lapply(1:n.iter,function(x){X.gen(n,d)})
   Y.list <- lapply(1:n.iter,function(x){Y.gen(n,d,p, sob_smooth, c_d, 
@@ -243,21 +256,21 @@ Single.MMD <- function(n, d, p, sob_smooth = 1, c_d = 2.7,
   print ("Single Kernel: Done")
   return (sum(count)/n.iter)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
-#------------------------------------------------------------------------------#
-#------------------------- Multiple Kernel Functions --------------------------#
-#------------------------------------------------------------------------------#
+################################################################################
+########################## Multiple Kernel Functions ###########################
+################################################################################
 
-# function for choosing range of bandwidth using min-max heurestic
-# INPUTS
-# X,Y <- given dataset
-# OUTPUT
-# upper and lower bound of range of bandwidth using min-max heurestic
+# Function for choosing range of bandwidth using min-max heurestic
 
 min.max.band <- function(X, Y){
+  
+  ##############################################################################
+  # INPUTS
+  # X,Y <- given dataset
+  # OUTPUT
+  # upper and lower bound of range of bandwidth using min-max heurestic
+  ##############################################################################
   
   # making X and Y matrices for generality
   X <- as.matrix(X); Y <- as.matrix(Y)
@@ -273,18 +286,19 @@ min.max.band <- function(X, Y){
   # exp(-sigma*d(x,y)), but according to median heurestic paper the "sigma" 
   # is standard, hence this formulation.
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
 # Function for choosing range based on 2^l rule
-# INPUTS
-# X,Y <- given dataset
-# l0, l1 <- upper and lower bound of integer range
-# OUTPUT
-# a vector of bandwidths
 
 expo.band <- function(X,Y, l0 = -3, l1 = 3){
+  
+  ##############################################################################
+  # INPUTS
+  # X,Y <- given dataset
+  # l0, l1 <- upper and lower bound of integer range
+  # OUTPUT
+  # a vector of bandwidths
+  ##############################################################################
+  
   # Computing median bandwidth
   med.band <- med.bandwidth(X,Y)
   
@@ -296,48 +310,52 @@ expo.band <- function(X,Y, l0 = -3, l1 = 3){
   }
   return(band)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
 # Function for computing function of MMD_{u}^{2} vector for a list of kernels
-# INPUTS
-# x <- a vector of values
-# param <- some other parameter to be used
-# OUTPUT
-# value of the function applied on the vector x
 
 multi.func <- function(x, param){
+  
+  ##############################################################################
+  # INPUTS
+  # x <- a vector of values
+  # param <- a matrix of appropriate dimension
+  # OUTPUT
+  # value of the function applied on the vector x
+  ##############################################################################
+  
   # Now, param is set to be the cov matrix of asymptotic null distribution. 
   # Hence we consider the following Mahalanobis type statistic. Observe that 
   # under null the asymptotic mean is 0.
   
   out <- t(x)%*%param%*%x
-  #out <- max(x)
   
   return (out)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
-# Function for finding H0 cutoff for multiple Kernel test.
-# INPUT:
-# n <- number of samples from distribution of X.
-# x <- the oberseved data coming from p
-# k.vec <- list of kernels to use
-# OUTPUT:
-# The upper alpha cutoff under null.
+# Function for finding H0 cutoff for multiple Kernel tests
 
+####### Helper function for computing value of approximating statistic given a #
+# kernel and the independently generated gaussian variables ####################
 
 multi.k.approx.stat <- function(k.mat, u.mat){
   
+  # computing n.iter many samples of approximating distribution for a kernel
   test.stat <- colSums(t(u.mat) * (k.mat %*% t(u.mat))) - 2*tr(k.mat)
   
   return (test.stat)
 }
 
 multi.H0.cutoff <- function(n, x, k.vec, n.iter = 1000){
+  
+  ##############################################################################
+  # INPUT:
+  # n <- number of samples from distribution of X.
+  # x <- the oberseved data coming from p
+  # k.vec <- list of kernels to use
+  # OUTPUT:
+  # The upper alpha cutoff under null.
+  ##############################################################################
+  
   # required for using trace function
   require(psych)
   # length of the list of kernels
@@ -364,17 +382,19 @@ multi.H0.cutoff <- function(n, x, k.vec, n.iter = 1000){
   H0.thresh <- quantile(test.stat, probs = 0.95)
   return (H0.thresh)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
 
 # Function for providing list of kernels according to user choice
-# INPUT: 
-# X,Y <- observed data (used for finding bandwidth)
-# kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED", "LAP")
-# OUTPUT:
-# A list containing kernels using a pre-specified bandwidth selection method
+
 k.choice <- function(X,Y, kernel.choice){
+  
+  ##############################################################################
+  # INPUT: 
+  # X,Y <- observed data (used for finding bandwidth)
+  # kernel.choice <- choice of kernel ("MINMAX", "GEXP", "MIXED", "LAP")
+  # OUTPUT:
+  # A list containing kernels using a pre-specified bandwidth selection method.
+  # Note the kernels are kernlab objects.
+  ##############################################################################
   
   # List of kernels using min-max bandwidth
   if (kernel.choice == "MINMAX"){
@@ -438,25 +458,24 @@ k.choice <- function(X,Y, kernel.choice){
   return (kernel.vec)
 }
 
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-
 # Function for simulating test using multiple kernel
-# INPUTS
-# n <- number of original samples;
-# d <- dimension of the data
-# p <- number of perturbations
-# sob_smooth <- sobolev smoothness parameter
-# c_d <- multiplier for perturbed density
-# theta_seed <- seed for generating theta
-# kernel.choice <- choice of kernel used
 
-# OUTPUT
-# power of test using single kernel
 Multi.MMD <- function(n, d, p, sob_smooth = 1, c_d = 2.7, 
                       theta_seed = 1, kernel.choice,
                       n.iter = 1000){
+  
+  ##############################################################################
+  # INPUTS
+  # n <- number of original samples;
+  # d <- dimension of the data
+  # p <- number of perturbations
+  # sob_smooth <- sobolev smoothness parameter
+  # c_d <- multiplier for perturbed density
+  # theta_seed <- seed for generating theta
+  # kernel.choice <- choice of kernel used
+  # OUTPUT
+  # power of test using single kernel
+  ##############################################################################
   
   X.list <- lapply(1:n.iter,function(x){X.gen(n,d)})
   Y.list <- lapply(1:n.iter,function(x){Y.gen(n,d,p, sob_smooth, c_d, 
@@ -490,28 +509,32 @@ Multi.MMD <- function(n, d, p, sob_smooth = 1, c_d = 2.7,
   print ("Multiple Kernel: Done")
   return (sum(count)/n.iter)
 }
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#------------------------------------------------------------------------------#
-#---------------------------- Power plot function -----------------------------#
-#------------------------------------------------------------------------------#
+
+################################################################################
+########################## Power comparison function ###########################
+################################################################################
+
 # Function for comparing power over dimensions
-# INPUTS:
-# n <- no of data points from both distributions
-# d <- dimension of the data
-# p.seq <- vector of number of perturbations
-# sob_smooth <- sobolev smoothness parameter
-# c_d <- multiplier for perturbed density
-# theta_seed <- seed for generating theta
-# kernel.choice <- choice of kernels under single (first two coordinates) 
-# and multi kernel setup (last three coordinate)
-# OUTPUT:
-# A data frame having powers of single and multiple test under various
-# perturbations
+
 power.d <- function(n, d, p.seq,sob_smooth,c_d,
                     kernel.choice,theta_Seed = 1,  n.iter = 500){
   
+  ##############################################################################
+  # INPUTS:
+  # n <- no of data points from both distributions
+  # d <- dimension of the data
+  # p.seq <- vector of number of perturbations
+  # sob_smooth <- sobolev smoothness parameter
+  # c_d <- multiplier for perturbed density
+  # theta_seed <- seed for generating theta
+  # kernel.choice <- choice of kernels under single (first two coordinates) 
+  # and multi kernel setup (last three coordinate)
+  # OUTPUT:
+  # A data frame having powers of single and multiple test under various
+  # perturbations
+  ##############################################################################
+  
+  # Creating log file for keeping track of iterations
   writeLines(c(""), "log.txt")
   
   # redefining perturbations vector for ease
@@ -519,9 +542,9 @@ power.d <- function(n, d, p.seq,sob_smooth,c_d,
   out.compare <- c()
   for (k in 1:length(p)){
     
-    #--------------------------------------------------------------------------#
+    # Loading required libraries
     library(Rfast)
-    #--------------------------------------------------------------------------#
+    
     # Estimating power under single kernel test
 
     out.row.col1 <- Single.MMD(n, d, p[k],sob_smooth = 1, c_d = 2.7, 
