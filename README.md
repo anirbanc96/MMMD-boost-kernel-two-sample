@@ -1,1 +1,1 @@
-# boost-kernel-two-sample
+# Boosting the power of kernel two sample test.
