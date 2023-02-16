@@ -27,6 +27,13 @@ reticulate::py_install(
 ```
 
 ```{python}
+
+"""
+The following code and it's dependencies are taken from 
+https://github.com/antoninschrab/mmdagg-paper
+"""
+
+
 """
 Running this script creates two files results.csv and results.plk in 
 the 'user/raw' directory containing the relevant parameters and the estimated 
