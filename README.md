@@ -12,5 +12,6 @@ with signal-to-noise ratio of 12. This emulates background clutter along with si
 # Author
 
 Anirban Chatterjee
-Department of Statistics and Data Science
+
+Department of Statistics and Data Science\
 University of Pennsylvania, USA
