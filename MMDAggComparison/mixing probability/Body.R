@@ -17,23 +17,18 @@ f <- function(x,y, kernel_choice, perm, type) {
   
   # create a new variable with a random name
   tmp_var_x <- paste(sample(letters, 30, replace = TRUE), collapse = "")
-  #message(tmp_var_name)
   assign(tmp_var_x, x, envir = e)
   
   tmp_var_y <- paste(sample(letters, 30, replace = TRUE), collapse = "")
-  #message(tmp_var_name)
   assign(tmp_var_y, y, envir = e)
   
   tmp_var_kernel <- paste(sample(letters, 30, replace = TRUE), collapse = "")
-  #message(tmp_var_name)
   assign(tmp_var_kernel, kernel_choice, envir = e)
   
   tmp_var_perm <- paste(sample(letters, 30, replace = TRUE), collapse = "")
-  #message(tmp_var_name)
   assign(tmp_var_perm, perm, envir = e)
   
   tmp_var_type <- paste(sample(letters, 30, replace = TRUE), collapse = "")
-  #message(tmp_var_name)
   assign(tmp_var_type, type, envir = e)
   
   # calling python script containing functions for MMDAgg test. Adapted from
