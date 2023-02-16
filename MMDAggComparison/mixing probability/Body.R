@@ -1,14 +1,17 @@
 # Function for calling pyhton code from MMDAgg Paper.
-# INPUT:
-# x,y <- sampled datasets from the two distributions
-# kernel_choice <- gaussian or laplace kernel
-# perm <- type of permutation test used
-# type <- type of test from MMDAgg paper - increasing, decreasing or centered
-# OUTPUT:
-# Binary output indication accept or reject
-
 
 f <- function(x,y, kernel_choice, perm, type) {
+  
+  ##############################################################################
+  # INPUT:
+  # x,y <- sampled datasets from the two distributions
+  # kernel_choice <- gaussian or laplace kernel
+  # perm <- type of permutation test used
+  # type <- type of test from MMDAgg paper - increasing, decreasing or centered
+  # OUTPUT:
+  # Binary output indication accept or reject
+  ##############################################################################
+  
   e <- new.env()
   options("reticulate.engine.environment" = e)
   
@@ -33,6 +36,8 @@ f <- function(x,y, kernel_choice, perm, type) {
   #message(tmp_var_name)
   assign(tmp_var_type, type, envir = e)
   
+  # calling python script containing functions for MMDAgg test. Adapted from
+  # https://github.com/antoninschrab/mmdagg-paper
   reticulate::source_python("Test-Run.py")
   res <- reticulate::py_run_string(glue::glue("py_count = mmdagg(100,
                                               r.{tmp_var_x}, r.{tmp_var_y},
@@ -40,21 +45,25 @@ f <- function(x,y, kernel_choice, perm, type) {
                                               r.{tmp_var_perm},
                                               r.{tmp_var_type}, -2, 2, 500,
                                               500, 100)"))
-  options("reticulate.engine.environment" = NULL)  # unset option
+  
+  options("reticulate.engine.environment" = NULL)
   return (res)  
   
 }
 
 
 # Functions for generating data under null and alternative
-# INPUT:
-# n <- number of samples
-# dim <- dimension of the data
-# p <- mixing probability
-# OUTPUT:
-# sampled datasets from the null and alternative distributions.
 
 X.gen <- function(n, dim, p){
+  
+  ##############################################################################
+  # INPUT:
+  # n <- number of samples
+  # dim <- dimension of the data
+  # p <- mixing probability
+  # OUTPUT:
+  # sampled datasets from the null distribution.
+  ##############################################################################
   
   # generating sample from gaussian denoted by mixture probability = 0
   if (p == 0){
@@ -93,6 +102,15 @@ X.gen <- function(n, dim, p){
 
 Y.gen <- function(n, dim, p){
   
+  ##############################################################################
+  # INPUT:
+  # n <- number of samples
+  # dim <- dimension of the data
+  # p <- mixing probability
+  # OUTPUT:
+  # sampled datasets from the alternative distribution.
+  ##############################################################################
+  
   # generating sample from gaussian denoted by mixture probability = 0
   if (p == 0){
     Y.samp <- MASS::mvrnorm(n, mu = mu1, Sigma = Sigma1)
@@ -126,13 +144,15 @@ Y.gen <- function(n, dim, p){
   return (Y.samp)
 }
 
+# Loading required libraries
 library(reticulate)
 
 
+# sample size
 n <- 100
+# number of iterations for estimating power
 n.iter <- 500
 # Dimension vector of data
-# Note: Change the following value for different dimensions
 d <- 30
 # probability of mixture
 p <- seq(0,1,length.out = 6)
@@ -155,6 +175,7 @@ cl <- makeCluster(cores[1]-1)
 
 registerDoParallel(cl)
 
+# creating log file for keeping track of iterations
 writeLines(c(""), "log.txt")
 
 start <- Sys.time()
@@ -164,20 +185,19 @@ start <- Sys.time()
 power_out <- foreach(k=1:length(p), .combine=cbind,
                      .export = ls(envir=globalenv())) %dopar% {
   
+  # Loading required libraries
   library(LaplacesDemon)
   library(Rfast)
   
-  # Sigma0 matrix <- cov matrix under H0
+  # cov matrix under H0
   Sigma0 <- matrix(0, nrow = d, ncol = d)
   for(i in 1:d){
     for(j in 1:d){
       Sigma0[i,j] = sigma.param^(abs(i-j))
     }
   }
-  # cov matrix under H0
+  # cov matrix under H1
   Sigma1 <- sigma.mult*Sigma0
-  #--------------------------------------------------------------------------#
-  #--------------------------------------------------------------------------#
   # mean vector under H0
   mu0 <- rep(0, d)
   # mean vector under H1
@@ -185,6 +205,7 @@ power_out <- foreach(k=1:length(p), .combine=cbind,
   
   count <- rep(0, n.iter)
   
+  # writing in created log file for keeping track of progress
   sink("log.txt", append=TRUE)
   
   
