@@ -1,14 +1,12 @@
 #------------------------------------------------------------------------------#
 #-------------------------- Common Functions ----------------------------------#
 #------------------------------------------------------------------------------#
-# mu0, mu1 and Sigma0, Sigma1 are global variables. Functions for generating
-# samples from the (mixture) distributions
 
 # INPUT: 
 # n <- no. of samples
 # dim <- dimension of the data
 # OUTPUT:
-# n many samples from the distribution
+# n many samples from the uniform distribution
 
 # Function for generating samples under null
 
@@ -24,7 +22,11 @@ X.gen <- function(n,dim){
 
 #------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------#
-# Function for generating samples under alternative
+# Function for generating samples from perturbed uniform distribution
+# INPUT:
+# n <- sample size
+# dum <- dimension of samples
+# num_perturb <- number of perturbations
 
 Y.gen <- function(n, dim, num_perturb, sob_smooth = 1, c_d = 2.7, 
                   theta_seed = 100){
