@@ -10,6 +10,9 @@ n.rep <- 50
 n <- 100
 # Dimension vector of data
 d <- c(5, 10, 25, 50,75,100,150)
+
+# Change the following parameters for different comparisons
+################################################################################
 # probability of mixture
 p <- 0.5
 # parameter for sigma0 matrix generation
@@ -18,7 +21,7 @@ sigma.param <- 0.5
 sigma.mult <- 1.22
 # parameter for mean value for H1 distribution
 mu.param <- 0
-
+################################################################################
 # Running experiments
 # storing power values for each dimensions
 out.d <- c()
