@@ -195,6 +195,10 @@ med.bandwidth <- function(X, Y){
   return (sigma.hat)
 }
 
+# Note: The above function actually returns the square of median bandwidth. This
+# is the primary reason why we use square root of output of above function for
+# Laplace kernels. 
+
 ################################################################################
 
 ################################################################################
