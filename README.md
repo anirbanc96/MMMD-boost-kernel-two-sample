@@ -20,8 +20,11 @@ The Graph and Kernel based experiments can be implemented by calling `Body.R` in
 For implementing kernel based tests we use [`kernlab`](https://rdrr.io/cran/kernlab/) package which uses,
 
 $$
-\text{Gaussian Kernel} = \exp\left(-\sigma\|x-x'\|^2\right)
+\text{Gaussian Kernel} = \exp\left(-\sigma\|x-x'\|^2\right)\text{ and }\text{Laplace Kernel} = \exp\left(-\sigma\|x-x'\|\right)
 $$
+
+So in our code we output the squared median bandwidth from the function `med.bandwidth` which is directly used in Gaussian Kernels, while the square root of the same is used for Laplace Kernels.
+
 # Requirements
 * `python 3.9`
 * `R 4.2.2`
