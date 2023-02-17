@@ -14,7 +14,7 @@ n <- 100
 d <- c(5, 10, 25, 50,75,100,150)
 
 # Change the following parameters for different comparisons.
-###############################################################################
+################################################################################
 # probability of mixture
 p <- 1
 # parameter for sigma0 matrix generation
