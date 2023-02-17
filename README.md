@@ -17,8 +17,11 @@ Codes for Figure $2$ and Figure $3$ is given in [Code for Dependence over Dimens
 The Graph and Kernel based experiments can be implemented by calling `Body.R` in appropriate sub-folders with the appropriate parameters. The `python` parts of the codes in [Comparison with MMDAgg](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/tree/main/MMDAggComparison) are adapted from [MMDAgg Tests](https://github.com/antoninschrab/mmdagg-paper).
 
 ## Using the median bandwidth
-For implementing kernel based tests we use [`kernlab`](https://rdrr.io/cran/kernlab/) package 
+For implementing kernel based tests we use [`kernlab`](https://rdrr.io/cran/kernlab/) package which uses,
 
+$$
+\text{Gaussian Kernel} = \exp\left(-\sigma\|x-x'\|^2\right)
+$$
 # Requirements
 * `python 3.9`
 * `R 4.2.2`
