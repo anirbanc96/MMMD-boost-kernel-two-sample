@@ -1,6 +1,6 @@
-# Code for Boosting the power of kernel two sample test
+# Code for Boosting the power of kernel two-sample test
 
-This github repository contains the codes for experiments presented in our paper [Boosting the Power of Kernel Two-Sample Test](https://arxiv.org/abs/2302.10687). We provide codes for generating Figures $1-9$ in our paper. The images and the corresponding codes can be found as follows:
+This GitHub repository contains the codes for experiments presented in our paper [Boosting the Power of Kernel Two-Sample Test](https://arxiv.org/abs/2302.10687). We provide codes for generating Figures $1-9$ in our paper. The images and the corresponding codes can be found as follows:
 
 * Figure $1$ in [Part 1(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/TYPE-I%20ERROR/Results/GaussianScaleTypeISampleSize.pdf) and [Part 1(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Over%20sample%20size%20-%20dim2/POWER/Results/GaussianScalePowerSampleSize.pdf) with codes given in [Code for Type-I error](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/tree/main/Over%20sample%20size%20-%20dim2/TYPE-I%20ERROR/Code) and [Code for Power](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/tree/main/Over%20sample%20size%20-%20dim2/POWER/Code) respectively.
 * Figure $2$ in [Part 2(a)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Power%20over%20Dimensions/Results/LocationScaleNormal/LocationScaleNormal.pdf) and [Part 2(b)](https://github.com/anirbanc96/MMMD-boost-kernel-two-sample/blob/main/Power%20over%20Dimensions/Results/Scalet10/Scalet10.pdf)
