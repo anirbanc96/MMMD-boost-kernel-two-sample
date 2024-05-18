@@ -1,0 +1,21 @@
+
+Bonferroni Combination - Power:  0  Sample Size:  50 
+Harmonic Mean Combination - Power:  0  Sample Size:  50 
+Bonferroni and Geometric Mean Combination - Power:  0  Sample Size:  50 
+MMMD Test - Power:  0.21  Sample Size:  50 
+
+Bonferroni Combination - Power:  0.02  Sample Size:  100 
+Harmonic Mean Combination - Power:  0  Sample Size:  100 
+Bonferroni and Geometric Mean Combination - Power:  0  Sample Size:  100 
+MMMD Test - Power:  0.29  Sample Size:  100 
+
+Bonferroni Combination - Power:  0.06  Sample Size:  200 
+Harmonic Mean Combination - Power:  0.02  Sample Size:  200 
+Bonferroni and Geometric Mean Combination - Power:  0.03  Sample Size:  200 
+MMMD Test - Power:  0.53  Sample Size:  200 
+
+Bonferroni Combination - Power:  0.2  Sample Size:  300 
+Harmonic Mean Combination - Power:  0.04  Sample Size:  300 
+Bonferroni and Geometric Mean Combination - Power:  0.05  Sample Size:  300 
+MMMD Test - Power:  0.75  Sample Size:  300 
+

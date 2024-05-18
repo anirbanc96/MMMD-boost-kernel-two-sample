@@ -1,0 +1,69 @@
+Loading required package: parallel
+Loading required package: iterators
+
+Attaching package: ‘snow’
+
+The following objects are masked from ‘package:parallel’:
+
+    closeNode, clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, clusterSplit, makeCluster, parApply,
+    parCapply, parLapply, parRapply, parSapply, recvData, recvOneData,
+    sendData, splitIndices, stopCluster
+
+Loading required namespace: Rmpi
+	30 slaves are spawned successfully. 0 failed.
+Loading required package: Rcpp
+Loading required package: RcppZiggurat
+Loading required package: RcppParallel
+
+Attaching package: ‘RcppParallel’
+
+The following object is masked from ‘package:Rcpp’:
+
+    LdFlags
+
+
+Rfast: 2.1.0
+ ___ __ __ __ __    __ __ __ __ __ _             _               __ __ __ __ __     __ __ __ __ __ __   
+|  __ __ __ __  |  |  __ __ __ __ _/            / \             |  __ __ __ __ /   /__ __ _   _ __ __\  
+| |           | |  | |                         / _ \            | |                        / /          
+| |           | |  | |                        / / \ \           | |                       / /          
+| |           | |  | |                       / /   \ \          | |                      / /          
+| |__ __ __ __| |  | |__ __ __ __           / /     \ \         | |__ __ __ __ _        / /__/\          
+|    __ __ __ __|  |  __ __ __ __|         / /__ _ __\ \        |_ __ __ __ _   |      / ___  /           
+|   \              | |                    / _ _ _ _ _ _ \                     | |      \/  / /       
+| |\ \             | |                   / /           \ \                    | |         / /          
+| | \ \            | |                  / /             \ \                   | |        / /          
+| |  \ \           | |                 / /               \ \                  | |       / /          
+| |   \ \__ __ _   | |                / /                 \ \     _ __ __ __ _| |      / /          
+|_|    \__ __ __\  |_|               /_/                   \_\   /_ __ __ __ ___|      \/             team
+
+Attaching package: ‘Rfast’
+
+The following objects are masked from ‘package:LaplacesDemon’:
+
+    dmvt, rmvt
+
+[1] 1
+There were 28 warnings (use warnings() to see them)
+Time difference of 5.060782 mins
+     Sample.Size Bonferroni   HM BonGM Multiple.Gaussian.Kernel
+[1,]          10       1.00 1.00  1.00                     1.00
+[2,]          50       0.99 0.99  0.96                     0.98
+[3,]         100       0.88 0.78  0.73                     1.00
+[4,]         150       0.63 0.48  0.42                     0.87
+[5,]         200       0.28 0.10  0.11                     0.77
+[6,]         250       0.12 0.02  0.06                     0.72
+[7,]         300       0.00 0.02  0.00                     0.72
+     Time...Bonferroni Time...HM Time...BonGM Time...Multiple.Gaussian.Kernel
+[1,]          6.879063  5.492821     5.589110                        8.600501
+[2,]          6.073441  6.152656     6.015851                        5.955016
+[3,]          6.989675  6.839130     6.852924                        6.950199
+[4,]          8.554085  8.344070     8.333775                        8.269729
+[5,]         10.304304 10.090849    10.089985                       10.278589
+[6,]         12.528863 12.310118    12.415855                       12.412267
+[7,]         15.632037 15.603680    15.468781                       15.638063
+
+real	5m4.338s
+user	3m54.836s
+sys	0m28.416s

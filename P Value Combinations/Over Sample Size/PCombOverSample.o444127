@@ -1,0 +1,87 @@
+Loading required package: parallel
+Loading required package: iterators
+
+Attaching package: ‘snow’
+
+The following objects are masked from ‘package:parallel’:
+
+    closeNode, clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, clusterSplit, makeCluster, parApply,
+    parCapply, parLapply, parRapply, parSapply, recvData, recvOneData,
+    sendData, splitIndices, stopCluster
+
+Loading required namespace: Rmpi
+	30 slaves are spawned successfully. 0 failed.
+Loading required package: Rcpp
+Loading required package: RcppZiggurat
+Loading required package: RcppParallel
+
+Attaching package: ‘RcppParallel’
+
+The following object is masked from ‘package:Rcpp’:
+
+    LdFlags
+
+
+Rfast: 2.1.0
+ ___ __ __ __ __    __ __ __ __ __ _             _               __ __ __ __ __     __ __ __ __ __ __   
+|  __ __ __ __  |  |  __ __ __ __ _/            / \             |  __ __ __ __ /   /__ __ _   _ __ __\  
+| |           | |  | |                         / _ \            | |                        / /          
+| |           | |  | |                        / / \ \           | |                       / /          
+| |           | |  | |                       / /   \ \          | |                      / /          
+| |__ __ __ __| |  | |__ __ __ __           / /     \ \         | |__ __ __ __ _        / /__/\          
+|    __ __ __ __|  |  __ __ __ __|         / /__ _ __\ \        |_ __ __ __ _   |      / ___  /           
+|   \              | |                    / _ _ _ _ _ _ \                     | |      \/  / /       
+| |\ \             | |                   / /           \ \                    | |         / /          
+| | \ \            | |                  / /             \ \                   | |        / /          
+| |  \ \           | |                 / /               \ \                  | |       / /          
+| |   \ \__ __ _   | |                / /                 \ \     _ __ __ __ _| |      / /          
+|_|    \__ __ __\  |_|               /_/                   \_\   /_ __ __ __ ___|      \/             team
+
+Attaching package: ‘Rfast’
+
+The following objects are masked from ‘package:LaplacesDemon’:
+
+    dmvt, rmvt
+
+[1] 1
+Warning messages:
+1: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+2: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+3: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+4: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+5: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+6: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+7: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+8: In e$fun(obj, substitute(ex), parent.frame(), e$data) :
+  already exporting variable(s): kernel.choice
+Time difference of 5.098586 mins
+     Sample.Size Bonferroni   HM BonGM Multiple.Gaussian.Kernel
+[1,]          50       0.00 0.00  0.00                     0.20
+[2,]         100       0.01 0.01  0.01                     0.28
+[3,]         200       0.06 0.05  0.03                     0.52
+[4,]         300       0.22 0.06  0.05                     0.74
+[5,]         400       0.22 0.25  0.23                     0.82
+[6,]         500       0.43 0.43  0.42                     0.98
+[7,]         600       0.69 0.55  0.58                     0.98
+[8,]         700       0.76 0.68  0.61                     0.98
+     Time...Bonferroni Time...HM Time...BonGM Time...Multiple.Gaussian.Kernel
+[1,]          6.065366  5.692035     5.492098                        5.887226
+[2,]          6.067909  5.847459     5.781769                        6.007675
+[3,]          6.562371  7.121260     7.252589                        5.987777
+[4,]          6.649186  6.583049     6.606681                        7.072371
+[5,]          7.521370  7.879938     7.823244                        9.080731
+[6,]          8.695702  8.341218     9.026636                       13.568925
+[7,]         11.784925 12.073251    11.991345                       20.812129
+[8,]         15.367172 14.456362    13.586939                       27.472679
+
+real	5m6.557s
+user	3m35.450s
+sys	1m22.230s

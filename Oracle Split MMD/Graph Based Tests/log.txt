@@ -1,0 +1,5 @@
+
+Starting iteration 1 
+Starting iteration 2 
+FR test in iteration 0.096 1 
+FR test in iteration 0.084 2 

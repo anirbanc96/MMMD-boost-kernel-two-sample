@@ -1,0 +1,36 @@
+
+Bonferroni Combination - Power:  1  Dimension:  1 
+Harmonic Mean Combination - Power:  1  Dimension:  1 
+Bonferroni and Geometric Mean Combination - Power:  1  Dimension:  1 
+MMMD Test - Power:  1  Dimension:  1 
+
+Bonferroni Combination - Power:  0.99  Dimension:  2 
+Harmonic Mean Combination - Power:  0.99  Dimension:  2 
+Bonferroni and Geometric Mean Combination - Power:  0.96  Dimension:  2 
+MMMD Test - Power:  0.98  Dimension:  2 
+
+Bonferroni Combination - Power:  0.88  Dimension:  3 
+Harmonic Mean Combination - Power:  0.78  Dimension:  3 
+Bonferroni and Geometric Mean Combination - Power:  0.73  Dimension:  3 
+MMMD Test - Power:  1  Dimension:  3 
+
+Bonferroni Combination - Power:  0.63  Dimension:  4 
+Harmonic Mean Combination - Power:  0.48  Dimension:  4 
+Bonferroni and Geometric Mean Combination - Power:  0.42  Dimension:  4 
+MMMD Test - Power:  0.87  Dimension:  4 
+
+Bonferroni Combination - Power:  0.28  Dimension:  5 
+Harmonic Mean Combination - Power:  0.1  Dimension:  5 
+Bonferroni and Geometric Mean Combination - Power:  0.11  Dimension:  5 
+MMMD Test - Power:  0.77  Dimension:  5 
+
+Bonferroni Combination - Power:  0.12  Dimension:  6 
+Harmonic Mean Combination - Power:  0.02  Dimension:  6 
+Bonferroni and Geometric Mean Combination - Power:  0.06  Dimension:  6 
+MMMD Test - Power:  0.72  Dimension:  6 
+
+Bonferroni Combination - Power:  0  Dimension:  7 
+Harmonic Mean Combination - Power:  0.02  Dimension:  7 
+Bonferroni and Geometric Mean Combination - Power:  0  Dimension:  7 
+MMMD Test - Power:  0.72  Dimension:  7 
+
