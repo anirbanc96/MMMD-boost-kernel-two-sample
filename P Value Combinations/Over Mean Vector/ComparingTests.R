@@ -27,13 +27,14 @@ power.d <- function(n, sigma.param, sigma.mult,
                     kernel.choice, n.est, n.iter = 500){
   
   ##############################################################################
-  # input: n.seq <- vector of sample values
+  # input: n <- sample size
   #        sigma.param <- parameter for generating sigma matrix under H0
   #        sigma.mult <- parameter for multiplying cov matrix under H0
   #        mu.param <- parameter for generating mean vector under H0
-  #        d <- dimension of data
+  #        d.seq <- vector of dimension of data
   #        p <- probability of mixing
   #        kernel.choice <- vector of strings for kernel choices for each test
+  #        n.est <- number of samples for multiplier bootstrap
   #        n.iter <- number of iterations to be done for power estimation
   # output: a dataframe with estimated power for each test
   ##############################################################################
@@ -52,11 +53,11 @@ power.d <- function(n, sigma.param, sigma.mult,
   for (k in 1:length(d)){
     
     #--------------------------------------------------------------------------#
-    Sigma0 <- diag(sigma.param, d[k], d[k])
     # cov matrix under H0
+    Sigma0 <- diag(sigma.param, d[k], d[k])
+    # cov matrix under H1
     Sigma1 <- sigma.mult*Sigma0
     #--------------------------------------------------------------------------#
-    
     # mean vector under H0
     mu0 <- rep(0, d[k])
     # mean vector under H1
@@ -64,8 +65,7 @@ power.d <- function(n, sigma.param, sigma.mult,
     
     gen.var <- list(mu0, mu1, Sigma0, Sigma1)
     #--------------------------------------------------------------------------#
-    
-    # Estimating power under single kernel test
+    # Estimating power using p-value combination of single kernel test
     start <- Sys.time()
     out.row.col1 <- Single.MMD(n, d[k],gen.var, p,kernel.choice[1], n.est,
                                type = "bon", n.iter)
