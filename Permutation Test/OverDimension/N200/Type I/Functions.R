@@ -452,14 +452,6 @@ Multi.MMD <- function(n, d,gen.var, p = 0, kernel.choice = "GEXP", n.est = 1000,
 
 multi.perm.test <- function(m, x.perm, y.perm, kernel.vec){
   
-  ##############################################################################
-  # input: m <- sample size under H0
-  #        x.perm <- x samples under permutation
-  #        y.perm <- Y samples under permutation
-  #        kernel.vec <- list of kernels for aggregation
-  # output: mmd.perm.func <- MMMD statistic with permuted samples
-  ##############################################################################
-  
   mmd.perm.vec <- m*compute.MMD.vec(x.perm, y.perm, kernel.vec)
   inv.cov <- Rfast::spdinv(est.cov(m, x.perm, kernel.vec))
   
@@ -472,27 +464,17 @@ multi.perm.pval <- function(m, pooled.samp, kernel.vec,
                             mmd.samp.func, alpha = 0.05,
                             n.perm = 1000){
   
-  ##############################################################################
-  # input: m <- sample size
-  #        pooled.samp <- combined X and Y samples
-  #        kernel.vec <- list of kernels under aggeregation
-  #        mmd.samp.func <- MMMD statistic for observed samples
-  #        alpha <- test cutoff
-  #        n.perm <- number of permutations performed
-  # output: accept or reject of permutation test
-  ##############################################################################
-  
   perm.rows <- t(mcsapply(1:n.perm, function(x){sample(2*m)}))
   
-  mmd.p.val <- sum(mcsapply(1:n.perm, 
-                            function(x){multi.perm.test(m, 
-                                        pooled.samp[perm.rows[x,1:m],],
-                                        pooled.samp[perm.rows[x,(m+1):(2*m)],],
-                                        kernel.vec) >= mmd.samp.func}))
+  mmd.p.val <- sum(mcsapply(1:n.perm, function(x){multi.perm.test(m, 
+                                                                  pooled.samp[perm.rows[x,1:m],],
+                                                                  pooled.samp[perm.rows[x,(m+1):(2*m)],],
+                                                                  kernel.vec) >= mmd.samp.func}))
   
   mmd.p.val <- (1 + mmd.p.val)/(1+n.perm)
   
   return (mmd.p.val <= alpha)
+  
 }
 
 ################################################################################
@@ -501,17 +483,6 @@ multi.perm.pval <- function(m, pooled.samp, kernel.vec,
 
 perm.test <- function(m, d, gen.var, p = 0, kernel.choice = "GEXP",
                       n.perm = 1000, n.iter = 1000){
-  
-  ##############################################################################
-  # input: m <- samples size
-  #        d <- dimension of samples
-  #        gen.var <- collection of mean and covariance matrix under H0 and H1
-  #        p <- indicator for mixture distribution
-  #        kernel.choice <- the chosen aggregation strategy
-  #        n.perm <- number of permutations performed
-  #        n.iter <- number of iterations for estimating power
-  # output <- estimated power of permutation test
-  ##############################################################################
   
   mu0 <- gen.var[[1]]; mu1 <- gen.var[[2]]
   Sigma0 <- gen.var[[3]]; Sigma1 <- gen.var[[4]]
@@ -562,15 +533,13 @@ power.d <- function(n, sigma.param, sigma.mult,
                     n.perm, n.est, n.iter = 1000){
   
   ##############################################################################
-  # input: n <- Sample size
+  # input: n.seq <- vector of sample values
   #        sigma.param <- parameter for generating sigma matrix under H0
   #        sigma.mult <- parameter for multiplying cov matrix under H0
   #        mu.param <- parameter for generating mean vector under H0
-  #        d.seq <- dimension vector of data
+  #        d <- dimension of data
   #        p <- probability of mixing
   #        kernel.choice <- vector of strings for kernel choices for each test
-  #        n.perm <- number of permutations to be done
-  #        n.est <- number of samples for multiplier bootstrap
   #        n.iter <- number of iterations to be done for power estimation
   # output: a dataframe with estimated power for each test
   ##############################################################################
@@ -598,8 +567,6 @@ power.d <- function(n, sigma.param, sigma.mult,
     gen.var <- list(mu0, mu1, Sigma0, Sigma1)
     #--------------------------------------------------------------------------#
     
-    # Estimating power under permutation test
-    
     start <- Sys.time()
     out.row.col1 <- perm.test(n, d[k], gen.var, p,
                               kernel.choice,n.perm, n.iter)
@@ -609,9 +576,19 @@ power.d <- function(n, sigma.param, sigma.mult,
     out.row.col1.time <- difftime(end, start, units = "secs")[[1]]
     
     #--------------------------------------------------------------------------#
+    # Estimating power under multiple kernel test
     
+    start <- Sys.time()
+    out.row.col2 <- Multi.MMD(n, d[k], gen.var, p,
+                              kernel.choice, n.est, n.iter)
+    cat(paste("\n Multiplier Bootstrap \n Power: ",out.row.col2,
+              "\n Dimension: ", d[k],"\n"), file="log.txt", append=TRUE)
+    end <- Sys.time()
+    out.row.col2.time <- difftime(end, start, units = "secs")[[1]]
+    #--------------------------------------------------------------------------#
     # Concatenating all the outputs
-    out.row <- c(d[k],out.row.col1, out.row.col1.time)
+    out.row <- c(d[k],out.row.col1, out.row.col2, out.row.col1.time,
+                 out.row.col2.time)
     
     out.compare <- rbind(out.compare, out.row)
     
@@ -620,7 +597,9 @@ power.d <- function(n, sigma.param, sigma.mult,
   
   out.compare <- as.data.frame(out.compare)
   colnames(out.compare) <- c("Sample Size","Permutation-Gauss",
-                             "Time-Permutation")
+                             "MultiplierBoot-Gauss",
+                             "Time-Permutation",
+                             "Time-MultiplierBoot")
   
   return (out.compare)
 }

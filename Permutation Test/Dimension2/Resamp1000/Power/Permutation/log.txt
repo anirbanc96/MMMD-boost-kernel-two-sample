@@ -1,0 +1,7 @@
+
+
+ Permutation Test Iteration:  2
+ Permutation Test Iteration:  1
+ Permutation Test 
+ Power:  0 
+ Sample Size:  10 

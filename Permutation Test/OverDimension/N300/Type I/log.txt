@@ -1,0 +1,29 @@
+
+
+ Permutation Test Iteration:  3
+ Permutation Test Iteration:  5
+ Permutation Test Iteration:  2
+ Permutation Test Iteration:  6
+ Permutation Test Iteration:  7
+ Permutation Test Iteration:  4
+ Permutation Test Iteration:  1
+ Permutation Test Iteration:  9
+ Permutation Test Iteration:  8
+ Permutation Test Iteration:  10
+ Permutation Test 
+ Power:  0 
+ Dimension:  2 
+
+ Multiplier Bootstrap Test Iteration:  5
+ Multiplier Bootstrap Test Iteration:  6
+ Multiplier Bootstrap Test Iteration:  3
+ Multiplier Bootstrap Test Iteration:  4
+ Multiplier Bootstrap Test Iteration:  2
+ Multiplier Bootstrap Test Iteration:  1
+ Multiplier Bootstrap Test Iteration:  7
+ Multiplier Bootstrap Test Iteration:  8
+ Multiplier Bootstrap Test Iteration:  10
+ Multiplier Bootstrap Test Iteration:  9
+ Multiplier Bootstrap 
+ Power:  0.1 
+ Dimension:  2 

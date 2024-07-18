@@ -1,0 +1,15 @@
+
+
+ Permutation Test Iteration:  3
+ Permutation Test Iteration:  6
+ Permutation Test Iteration:  7
+ Permutation Test Iteration:  1
+ Permutation Test Iteration:  5
+ Permutation Test Iteration:  4
+ Permutation Test Iteration:  2
+ Permutation Test Iteration:  9
+ Permutation Test Iteration:  8
+ Permutation Test Iteration:  10
+ Permutation Test 
+ Power:  0 
+ Sample Size:  10 

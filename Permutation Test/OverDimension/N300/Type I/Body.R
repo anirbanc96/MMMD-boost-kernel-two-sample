@@ -6,9 +6,9 @@ start <- Sys.time()
 # Number of repetitions
 n.rep <- 1
 # Number of data points
-n.seq <- c(200, 300, 400, 500, 600, 700)
+n <- 300
 # Dimension vector of data
-d <- 2
+d.seq <- c(2, 5, 10, 20, 50, 100, 150, 200, 300)
 # probability of mixture
 p <- 0
 # parameter for sigma0 matrix generation
@@ -25,6 +25,7 @@ mu.param <- 0
 # multiple - "MINMAX", "GEXP" or "MIXED" for gaussian kernel with min-max, 
 # exponential bandwidth choice, or mixture of gaussian and laplace kernel.
 
+# 1st coordinate for single, 2nd for multiple
 kernel.choice <- "GEXP"
 #------------------------------------------------------------------------------#
 #------------------------------------------------------------------------------#
@@ -37,26 +38,26 @@ library(doParallel)
 
 # Uncomment following package if using MPI
 library(snow)
- 
+
 cores <- strtoi(Sys.getenv("NSLOTS"))
 cl <- makeCluster(cores, methods = FALSE, type = "MPI")
- 
+
 registerDoParallel(cl)
 
 ################################################################################
 # Uncommment following line if not using MPI
 # cores <- detectCores()
 # cl <- makeCluster(cores[1]-1) #not to overload your computer
-
+# 
 # registerDoParallel(cl)
 ################################################################################
 
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration
-  out.d.iter <- power.d(n.seq, sigma.param = sigma.param,
+  out.d.iter <- power.d(n, sigma.param = sigma.param,
                         sigma.mult = sigma.mult,
-                        mu.param = mu.param, d, p = p,
+                        mu.param = mu.param, d.seq = d.seq, p = p,
                         kernel.choice = kernel.choice,
                         n.perm = 1000, n.est = 1000, n.iter = 100)
   out.d <- c(out.d, out.d.iter)
@@ -68,4 +69,4 @@ difftime(end,start, units = "secs")
 
 # stopCluster(cl)
 ################################################################################
-write.csv(out.d, file = "TimePowerCompare.csv")
+write.csv(out.d, file = "TimeTypeICompare300.csv")

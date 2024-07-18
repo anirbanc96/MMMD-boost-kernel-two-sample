@@ -51,8 +51,6 @@ registerDoParallel(cl)
 # registerDoParallel(cl)
 ################################################################################
 
-set.seed(2024)
-
 out.d <- c()
 for (iter in 1:n.rep){
   # storing power values for particular iteration

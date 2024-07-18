@@ -1,0 +1,7 @@
+
+
+ Multiplier Bootstrap Test Iteration:  2
+ Multiplier Bootstrap Test Iteration:  1
+ Multiplier Bootstrap 
+ Power:  0 
+ Sample Size:  10 
