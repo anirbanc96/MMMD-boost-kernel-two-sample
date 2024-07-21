@@ -22,7 +22,7 @@ Oracle.laplace.power <- read_csv("PowerLapLocalOracle.csv") %>%
   as.matrix()
 
 
-pdf(file="NormalLocalPower.pdf")
+pdf(file="NormalLocalPowerOracleSplit.pdf")
 
 plot(d, apply(GEXP[,-c(1,2)], 1, mean), type='b', col=1, pch=1, lwd=1.5,
      ylim=c(0, 0.95), xlab="Signal Strength", 
