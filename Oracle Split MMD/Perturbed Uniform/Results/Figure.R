@@ -55,8 +55,8 @@ points(d, oracle.gauss.power[,2], type='b', col=6, pch=6, lwd=1.5)
 points(d, oracle.lap.power[,2], type='b', col=7, pch=7, lwd=1.5)
 
 
-legend("topright", c("Gauss MMMD","Lap MMMD","Mixed MMMD","Split Gauss",
-                     "Split Lap", "Oracle Gauss", "Oracle Lap"), 
+legend("topright", c("Gauss MMMD","Lap MMMD","Mixed MMMD","Opt Gauss MMD",
+                     "Opt Lap MMD", "Oracle Gauss MMD", "Oracle Lap MMD"), 
        bg='transparent', col=c(1,2,3,4,5,6,7),
        pch = c(1, 2, 3, 4, 5, 6, 7))
 
